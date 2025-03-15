@@ -30,7 +30,7 @@ export default tseslint.config(
             'no-console': 'warn',
             'no-undef': 'error',
             quotes: ['warn', 'single'],
-            'prettier/prettier': ['warn', { endOfLine: 'auto' }],
+            'prettier/prettier': ['error', { endOfLine: 'auto' }],
         },
     },
     eslintPluginPrettierRecommended,
