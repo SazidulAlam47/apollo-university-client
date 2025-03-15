@@ -40,7 +40,7 @@ const Sidebar = () => {
                     src={logo}
                     alt="Apollo University"
                     style={{
-                        width: '80%',
+                        maxWidth: '80%',
                         margin: 'auto',
                         display: 'block',
                     }}
