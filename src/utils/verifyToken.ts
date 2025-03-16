@@ -1,7 +1,11 @@
 import { jwtDecode } from 'jwt-decode';
 
 const verifyToken = (token: string) => {
-    return jwtDecode(token);
+    try {
+        return jwtDecode(token);
+    } catch (error) {
+        return error;
+    }
 };
 
 export default verifyToken;

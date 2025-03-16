@@ -1,5 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+    BaseQueryApi,
+    createApi,
+    FetchArgs,
+    fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
+import verifyToken from '../../utils/verifyToken';
+import { IUser, logout, setUser } from '../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:5000/api/v1',
@@ -15,8 +22,38 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
+const baseQueryWithRefreshToken = async (
+    args: string | FetchArgs,
+    api: BaseQueryApi,
+    extraOptions: object,
+) => {
+    try {
+        let result = await baseQuery(args, api, extraOptions);
+        if (result?.error?.status) {
+            const res = await fetch(
+                'http://localhost:5000/api/v1/auth/refresh-token',
+                {
+                    credentials: 'include',
+                },
+            );
+            const data = await res.json();
+            if (data.success) {
+                const token = data.data.accessToken;
+                const user = verifyToken(token) as IUser;
+                api.dispatch(setUser({ user, token }));
+                result = await baseQuery(args, api, extraOptions);
+            } else {
+                api.dispatch(logout());
+            }
+        }
+        return result;
+    } catch (error) {
+        return { error };
+    }
+};
+
 export const baseApi = createApi({
     reducerPath: 'baseApi',
-    baseQuery,
+    baseQuery: baseQueryWithRefreshToken,
     endpoints: () => ({}),
 });
