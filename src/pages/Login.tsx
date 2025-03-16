@@ -3,9 +3,10 @@ import { Button, Form, Input } from 'antd';
 import { useLoginMutation } from '../redux/features/auth/authApi';
 import verifyToken from '../utils/verifyToken';
 import { useAppDispatch } from '../redux/hooks';
-import { setUser } from '../redux/features/auth/authSlice';
+import { IUser, setUser } from '../redux/features/auth/authSlice';
 import logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 type TCredentials = {
     id: string;
@@ -20,9 +21,15 @@ const Login = () => {
     const onFinish = async (credentials: TCredentials) => {
         const res = await login(credentials).unwrap();
         const token = res.data.accessToken;
-        const user = verifyToken(token);
+        const user = verifyToken(token) as IUser;
         dispatch(setUser({ user, token }));
-        navigate('/');
+
+        toast.promise(res, {
+            loading: 'Logging in...',
+            success: () => 'Logged in successfully',
+            error: 'Something went wrong',
+        });
+        navigate(`/${user.role}/dashboard`);
     };
 
     return (

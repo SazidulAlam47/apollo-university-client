@@ -2,8 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
+export interface IUser {
+    id: string;
+    role: string;
+    iat: number;
+    exp: number;
+}
 export interface TAuthState {
-    user: null | object;
+    user: null | IUser;
     token: null | string;
 }
 
@@ -33,3 +39,4 @@ export const { setUser, logout } = authSlice.actions;
 export default authSlice.reducer;
 
 export const currentToken = (state: RootState) => state.auth.token;
+export const currentUser = (state: RootState) => state.auth.user;
