@@ -31,6 +31,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     BaseQueryApi,
     DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
+    const toastId = toast.loading('Loading...');
     try {
         let result = await baseQuery(args, api, extraOptions);
 
@@ -40,10 +41,10 @@ const baseQueryWithRefreshToken: BaseQueryFn<
             ?.message;
 
         if (errorMessage && result?.error?.status !== 401) {
-            toast.error(errorMessage);
+            toast.error(errorMessage, { id: toastId });
         }
         if (successMessage) {
-            toast.error(successMessage);
+            toast.success(successMessage, { id: toastId });
         }
 
         if (result?.error?.status === 401) {
@@ -66,6 +67,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
         }
         return result;
     } catch (error) {
+        toast.error('Something went wrong', { id: toastId });
         return { error };
     }
 };

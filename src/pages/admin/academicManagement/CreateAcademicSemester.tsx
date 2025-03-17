@@ -7,9 +7,12 @@ import { monthsOptions } from '../../../constants/global';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
 import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement/academicManagementApi';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAcademicSemester = () => {
     const [addAcademicSemester] = useAddAcademicSemesterMutation();
+    const navigate = useNavigate();
+
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         const name = nameOptions[Number(data.name) - 1]?.label;
         const semesterData = {
@@ -17,8 +20,11 @@ const CreateAcademicSemester = () => {
             name,
             code: data.name,
         };
-        const res = await addAcademicSemester(semesterData).unwrap();
-        console.log(res);
+        const res = await addAcademicSemester(semesterData);
+
+        if (res.data) {
+            navigate('/admin/academic-semester');
+        }
     };
 
     return (
