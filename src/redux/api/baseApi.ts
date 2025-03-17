@@ -61,7 +61,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
                 api.dispatch(setUser({ user, token }));
                 result = await baseQuery(args, api, extraOptions);
             } else {
-                toast.error('You are not Authorized');
+                toast.error('You are not Authorized', { id: toastId });
                 api.dispatch(logout());
             }
         }
