@@ -6,16 +6,19 @@ import { nameOptions, yearOptions } from '../../../constants/semester';
 import { monthsOptions } from '../../../constants/global';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
+import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement/academicManagementApi';
 
 const CreateAcademicSemester = () => {
-    const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    const [addAcademicSemester] = useAddAcademicSemesterMutation();
+    const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         const name = nameOptions[Number(data.name) - 1]?.label;
-        const submitData = {
+        const semesterData = {
             ...data,
             name,
             code: data.name,
         };
-        console.log(submitData);
+        const res = await addAcademicSemester(semesterData).unwrap();
+        console.log(res);
     };
 
     return (

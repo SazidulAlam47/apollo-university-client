@@ -5,7 +5,6 @@ import { useAppDispatch } from '../redux/hooks';
 import { IUser, setUser } from '../redux/features/auth/authSlice';
 import logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
 import UFrom from '../components/form/UFrom';
 import { FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,11 +24,6 @@ const Login = () => {
         const user = verifyToken(token) as IUser;
         dispatch(setUser({ user, token }));
 
-        toast.promise(res, {
-            loading: 'Logging in...',
-            success: () => 'Logged in successfully',
-            error: 'Something went wrong',
-        });
         navigate(`/${user.role}/dashboard`);
     };
 
