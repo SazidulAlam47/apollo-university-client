@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form } from 'antd';
 import { ReactNode } from 'react';
 import {
@@ -9,6 +10,7 @@ import {
 
 type TFormConfig = {
     defaultValues?: Record<string, unknown>;
+    resolver?: any;
 };
 
 type UFromProps = {
@@ -16,11 +18,14 @@ type UFromProps = {
     onSubmit: SubmitHandler<FieldValues>;
 } & TFormConfig;
 
-const UFrom = ({ children, onSubmit, defaultValues }: UFromProps) => {
+const UFrom = ({ children, onSubmit, defaultValues, resolver }: UFromProps) => {
     const formConfig: TFormConfig = {};
 
     if (defaultValues) {
         formConfig.defaultValues = defaultValues;
+    }
+    if (resolver) {
+        formConfig.resolver = resolver;
     }
 
     const methods = useForm(formConfig);

@@ -7,8 +7,11 @@ import logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import UFrom from '../components/form/UFrom';
-import UInput from '../components/form/UInput';
 import { FieldValues } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import UInputId from '../components/form/UInputId';
+import UInputPassword from '../components/form/UInputPassword';
+import { loginSchema } from '../schemas/login.schema';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -43,22 +46,11 @@ const Login = () => {
                 <img src={logo} alt="Apollo University" />
                 <UFrom
                     onSubmit={onSubmit}
+                    resolver={zodResolver(loginSchema)}
                     defaultValues={{ id: 'A-0001', password: 'Admin123' }}
                 >
-                    <UInput
-                        name="id"
-                        placeholder="ID"
-                        type="text"
-                        rules={{ required: 'Please enter your ID' }}
-                    />
-                    <UInput
-                        name="password"
-                        placeholder="Password"
-                        type="password"
-                        rules={{
-                            required: 'Please enter your Password',
-                        }}
-                    />
+                    <UInputId />
+                    <UInputPassword />
                     <Button block type="primary" htmlType="submit">
                         Log in
                     </Button>

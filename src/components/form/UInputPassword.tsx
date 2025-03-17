@@ -1,27 +1,22 @@
 import { Form, Input } from 'antd';
 import { Controller } from 'react-hook-form';
+import { LockOutlined } from '@ant-design/icons';
 import UFromError from './UFromError';
 
-type UInputProps = {
-    type: string;
-    placeholder?: string;
-    name: string;
-    label?: string;
-};
-
-const UInput = ({ type, placeholder, name, label }: UInputProps) => {
+const UInputPassword = () => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
-                name={name}
+                name="password"
                 render={({ field, fieldState: { error } }) => (
-                    <Form.Item label={label} style={{ margin: 0 }}>
-                        <Input
+                    <Form.Item style={{ margin: 0 }}>
+                        <Input.Password
                             {...field}
-                            type={type}
-                            id={name}
+                            type="password"
+                            id="password"
+                            prefix={<LockOutlined />}
                             status={error ? 'error' : ''}
-                            placeholder={placeholder ? placeholder : ''}
+                            placeholder="Password"
                         />
                         <UFromError error={error} />
                     </Form.Item>
@@ -31,4 +26,4 @@ const UInput = ({ type, placeholder, name, label }: UInputProps) => {
     );
 };
 
-export default UInput;
+export default UInputPassword;
