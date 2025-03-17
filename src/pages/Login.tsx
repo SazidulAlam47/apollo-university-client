@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Col, Flex } from 'antd';
 import { useLoginMutation } from '../redux/features/auth/authApi';
 import verifyToken from '../utils/verifyToken';
 import { useAppDispatch } from '../redux/hooks';
@@ -17,6 +17,7 @@ const Login = () => {
 
     const onSubmit = async (data: FieldValues) => {
         const res = await login(data).unwrap();
+
         const token = res.data.accessToken;
         const user = verifyToken(token) as IUser;
         dispatch(setUser({ user, token }));
@@ -30,21 +31,15 @@ const Login = () => {
     };
 
     return (
-        <div
+        <Flex
+            justify="center"
+            align="center"
             style={{
                 width: '100%',
                 height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
             }}
         >
-            <div
-                style={{
-                    width: '100%',
-                    maxWidth: '20rem',
-                }}
-            >
+            <Col span={5}>
                 <img src={logo} alt="Apollo University" />
                 <UFrom
                     onSubmit={onSubmit}
@@ -54,22 +49,22 @@ const Login = () => {
                         name="id"
                         placeholder="ID"
                         type="text"
-                        // registerOptions={{ required: 'Please enter your ID' }}
+                        rules={{ required: 'Please enter your ID' }}
                     />
                     <UInput
                         name="password"
                         placeholder="Password"
                         type="password"
-                        // registerOptions={{
-                        //     required: 'Please enter your Password',
-                        // }}
+                        rules={{
+                            required: 'Please enter your Password',
+                        }}
                     />
                     <Button block type="primary" htmlType="submit">
                         Log in
                     </Button>
                 </UFrom>
-            </div>
-        </div>
+            </Col>
+        </Flex>
     );
 };
 

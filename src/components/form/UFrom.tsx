@@ -1,3 +1,4 @@
+import { Form } from 'antd';
 import { ReactNode } from 'react';
 import {
     FieldValues,
@@ -23,9 +24,12 @@ const UFrom = ({ children, onSubmit, defaultValues }: UFromProps) => {
     }
 
     const methods = useForm(formConfig);
+
     return (
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+            <Form onFinish={methods.handleSubmit(onSubmit)} layout="vertical">
+                {children}
+            </Form>
         </FormProvider>
     );
 };

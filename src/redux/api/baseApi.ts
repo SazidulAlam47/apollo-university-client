@@ -10,6 +10,7 @@ import {
 import { RootState } from '../store';
 import verifyToken from '../../utils/verifyToken';
 import { IUser, logout, setUser } from '../features/auth/authSlice';
+import { toast } from 'sonner';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:5000/api/v1',
@@ -32,7 +33,15 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
     try {
         let result = await baseQuery(args, api, extraOptions);
-        if (result?.error?.status) {
+
+        const errorMessage = (result.error?.data as { message?: string })
+            ?.message;
+
+        if (errorMessage && result?.error?.status !== 401) {
+            toast.error(errorMessage);
+        }
+
+        if (result?.error?.status === 401) {
             const res = await fetch(
                 'http://localhost:5000/api/v1/auth/refresh-token',
                 {
@@ -46,6 +55,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
                 api.dispatch(setUser({ user, token }));
                 result = await baseQuery(args, api, extraOptions);
             } else {
+                toast.error('You are not Authorized');
                 api.dispatch(logout());
             }
         }

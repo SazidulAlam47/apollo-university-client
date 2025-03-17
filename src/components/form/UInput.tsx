@@ -1,32 +1,35 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import { Form, Input } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 
 type UInputProps = {
     type: string;
-    placeholder: string;
+    placeholder?: string;
     name: string;
+    label?: string;
+    rules?: Record<string, unknown>;
 };
 
-const UInput = ({ type, placeholder, name }: UInputProps) => {
+const UInput = ({ type, placeholder, name, rules, label }: UInputProps) => {
     const {
         formState: { errors },
     } = useFormContext();
 
-    // console.log('errors', errors);
-
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
+                rules={rules ? rules : {}}
                 name={name}
                 render={({ field }) => {
                     if (type === 'password') {
                         return (
                             <Input.Password
                                 {...field}
-                                prefix={<LockOutlined />}
                                 type={type}
-                                placeholder={placeholder}
+                                id={name}
+                                status={errors[name] ? 'error' : ''}
+                                prefix={<LockOutlined />}
+                                placeholder={placeholder ? placeholder : ''}
                             />
                         );
                     }
@@ -34,24 +37,30 @@ const UInput = ({ type, placeholder, name }: UInputProps) => {
                         return (
                             <Input
                                 {...field}
-                                prefix={<UserOutlined />}
                                 type={type}
-                                placeholder={placeholder}
+                                id={name}
+                                status={errors[name] ? 'error' : ''}
+                                prefix={<UserOutlined />}
+                                placeholder={placeholder ? placeholder : ''}
                             />
                         );
                     }
                     return (
-                        <Input
-                            {...field}
-                            type={type}
-                            placeholder={placeholder}
-                        />
+                        <Form.Item label={label} style={{ margin: 0 }}>
+                            <Input
+                                {...field}
+                                type={type}
+                                id={name}
+                                status={errors[name] ? 'error' : ''}
+                                placeholder={placeholder ? placeholder : ''}
+                            />
+                        </Form.Item>
                     );
                 }}
             />
 
             {errors[name] && (
-                <p style={{ color: 'red', paddingTop: '10px' }}>
+                <p style={{ color: '#ff4d4f' }}>
                     {errors[name]?.message as string}
                 </p>
             )}
