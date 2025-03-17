@@ -1,5 +1,4 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button } from 'antd';
 import { useLoginMutation } from '../redux/features/auth/authApi';
 import verifyToken from '../utils/verifyToken';
 import { useAppDispatch } from '../redux/hooks';
@@ -7,19 +6,17 @@ import { IUser, setUser } from '../redux/features/auth/authSlice';
 import logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-
-type TCredentials = {
-    id: string;
-    password: string;
-};
+import UFrom from '../components/form/UFrom';
+import UInput from '../components/form/UInput';
+import { FieldValues } from 'react-hook-form';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [login] = useLoginMutation();
 
-    const onFinish = async (credentials: TCredentials) => {
-        const res = await login(credentials).unwrap();
+    const onSubmit = async (data: FieldValues) => {
+        const res = await login(data).unwrap();
         const token = res.data.accessToken;
         const user = verifyToken(token) as IUser;
         dispatch(setUser({ user, token }));
@@ -49,43 +46,28 @@ const Login = () => {
                 }}
             >
                 <img src={logo} alt="Apollo University" />
-                <Form
-                    name="login"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
+                <UFrom
+                    onSubmit={onSubmit}
+                    defaultValues={{ id: 'A-0001', password: 'Admin123' }}
                 >
-                    <Form.Item
+                    <UInput
                         name="id"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your ID!',
-                            },
-                        ]}
-                    >
-                        <Input prefix={<UserOutlined />} placeholder="ID" />
-                    </Form.Item>
-                    <Form.Item
+                        placeholder="ID"
+                        type="text"
+                        // registerOptions={{ required: 'Please enter your ID' }}
+                    />
+                    <UInput
                         name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your Password!',
-                            },
-                        ]}
-                    >
-                        <Input.Password
-                            prefix={<LockOutlined />}
-                            type="password"
-                            placeholder="Password"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button block type="primary" htmlType="submit">
-                            Log in
-                        </Button>
-                    </Form.Item>
-                </Form>
+                        placeholder="Password"
+                        type="password"
+                        // registerOptions={{
+                        //     required: 'Please enter your Password',
+                        // }}
+                    />
+                    <Button block type="primary" htmlType="submit">
+                        Log in
+                    </Button>
+                </UFrom>
             </div>
         </div>
     );
