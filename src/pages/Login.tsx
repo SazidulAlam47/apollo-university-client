@@ -12,7 +12,7 @@ import UInputId from '../components/form/UInputId';
 import UInputPassword from '../components/form/UInputPassword';
 import { loginSchema } from '../schemas/login.schema';
 import { toast } from 'sonner';
-import { TResponse } from '../types';
+import { TLogin, TResponse } from '../types';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -21,10 +21,10 @@ const Login = () => {
 
     const onSubmit = async (data: FieldValues) => {
         const toastId = toast.loading('Logging in...');
-        const res = (await login(data)) as TResponse;
+        const res = (await login(data)) as TResponse<TLogin>;
 
         if (res.data) {
-            const token = res.data.data.accessToken as string;
+            const token = res.data.data.accessToken;
             const user = verifyToken(token) as IUser;
             dispatch(setUser({ user, token }));
             navigate(`/${user.role}/dashboard`);

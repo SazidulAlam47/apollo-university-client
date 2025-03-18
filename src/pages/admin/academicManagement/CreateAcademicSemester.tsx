@@ -9,7 +9,7 @@ import { academicSemesterSchema } from '../../../schemas/academicManagement.sche
 import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement/academicManagementApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { TResponse } from '../../../types';
+import { TAcademicSemester, TResponse } from '../../../types';
 
 const CreateAcademicSemester = () => {
     const [addAcademicSemester] = useAddAcademicSemesterMutation();
@@ -23,7 +23,9 @@ const CreateAcademicSemester = () => {
             code: data.name,
         };
         const toastId = toast.loading('Creating...');
-        const res = (await addAcademicSemester(semesterData)) as TResponse;
+        const res = (await addAcademicSemester(
+            semesterData,
+        )) as TResponse<TAcademicSemester>;
         if (res.data) {
             navigate('/admin/academic-semester');
             toast.success(res.data.message, { id: toastId });
