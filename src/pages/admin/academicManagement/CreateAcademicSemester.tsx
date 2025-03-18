@@ -35,41 +35,45 @@ const CreateAcademicSemester = () => {
     };
 
     return (
-        <Flex justify="center">
-            <Col span={10}>
-                <UFrom
-                    onSubmit={handleSubmit}
-                    resolver={zodResolver(academicSemesterSchema)}
-                >
-                    <USelect
-                        name="name"
-                        placeholder="Select Name"
-                        label="Name"
-                        options={nameOptions}
-                    />
-                    <USelect
-                        name="year"
-                        placeholder="Select Year"
-                        label="Year"
-                        options={yearOptions}
-                    />
-                    <USelect
-                        name="startMonth"
-                        placeholder="Select Start Month"
-                        label="Start Month"
-                        options={monthsOptions}
-                    />
-                    <USelect
-                        name="endMonth"
-                        placeholder="Select End Month"
-                        label="End Month"
-                        options={monthsOptions}
-                    />
-
-                    <Button htmlType="submit">Create</Button>
-                </UFrom>
-            </Col>
-        </Flex>
+        <>
+            <h2 style={{ textAlign: 'center', margin: '10px 0' }}>
+                Create Academic Semester
+            </h2>
+            <Flex justify="center">
+                <Col span={10}>
+                    <UFrom
+                        onSubmit={handleSubmit}
+                        resolver={zodResolver(academicSemesterSchema)}
+                    >
+                        <USelect
+                            name="name"
+                            placeholder="Select Name"
+                            label="Name"
+                            options={nameOptions}
+                        />
+                        <USelect
+                            name="year"
+                            placeholder="Select Year"
+                            label="Year"
+                            options={yearOptions}
+                        />
+                        <USelect
+                            name="startMonth"
+                            placeholder="Select Start Month"
+                            label="Start Month"
+                            options={monthsOptions}
+                        />
+                        <USelect
+                            name="endMonth"
+                            placeholder="Select End Month"
+                            label="End Month"
+                            options={monthsOptions}
+                        />
+                        <Button htmlType="submit">Create</Button>
+                    </UFrom>
+                </Col>
+            </Flex>
+        </>
     );
 };
 
