@@ -29,8 +29,7 @@ const Login = () => {
             dispatch(setUser({ user, token }));
             navigate(`/${user.role}/dashboard`);
             toast.success(res.data.message, { id: toastId });
-        }
-        if (res.error) {
+        } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
     };

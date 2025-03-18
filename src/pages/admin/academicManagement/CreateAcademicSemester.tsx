@@ -27,8 +27,7 @@ const CreateAcademicSemester = () => {
         if (res.data) {
             navigate('/admin/academic-semester');
             toast.success(res.data.message, { id: toastId });
-        }
-        if (res.error) {
+        } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
     };

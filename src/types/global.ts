@@ -5,6 +5,12 @@ export type TResponse = {
         success: boolean;
         message: string;
         data: any;
+        meta?: {
+            page: number;
+            limit: number;
+            totalData: number;
+            totalPage: number;
+        };
     };
     error?: {
         status: number;
