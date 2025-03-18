@@ -14,3 +14,12 @@ export const academicFacultySchema = z.object({
         .string({ required_error: 'Please Enter a Name' })
         .min(1, { message: "Name can't be empty" }),
 });
+
+export const academicDepartmentSchema = z.object({
+    name: z
+        .string({ required_error: 'Please Enter a Name' })
+        .min(1, { message: "Name can't be empty" }),
+    academicFaculty: z.string({
+        required_error: 'Please select a Academic Faculty',
+    }),
+});
