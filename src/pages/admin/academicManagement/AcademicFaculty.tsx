@@ -2,6 +2,7 @@ import { Table, TableColumnsType } from 'antd';
 import { Key } from 'react';
 import { useGetAllAcademicFacultiesQuery } from '../../../redux/features/admin/academicManagement/academicManagementApi';
 import Loader from '../../../components/loader/Loader';
+import { TAcademicFaculty } from '../../../types';
 
 type TTableData = {
     key: Key;
@@ -27,7 +28,7 @@ const AcademicFaculty = () => {
     }
 
     const tableData = academicFacultiesData!.data?.map(
-        ({ _id, name }: { _id: string; name: string }) => ({
+        ({ _id, name }: TAcademicFaculty) => ({
             key: _id,
             name,
         }),

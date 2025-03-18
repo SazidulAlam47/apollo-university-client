@@ -41,12 +41,12 @@ const adminPaths: TPath[] = [
             },
             {
                 name: 'Create A. Department',
-                path: 'create-academic-Department',
+                path: 'create-academic-department',
                 element: <CreateAcademicDepartment />,
             },
             {
                 name: 'Academic Department',
-                path: 'academic-Department',
+                path: 'academic-department',
                 element: <AcademicDepartment />,
             },
         ],
