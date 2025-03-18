@@ -80,7 +80,7 @@ const AcademicSemester = () => {
             <h2 style={{ textAlign: 'center', margin: '10px 0' }}>
                 Academic Semesters
             </h2>
-            <Table<TTableData>
+            <Table
                 loading={isFetching}
                 columns={columns}
                 dataSource={tableData}
