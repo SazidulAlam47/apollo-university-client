@@ -11,7 +11,7 @@ const MainLayout = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        toast.success('User logged out successfully');
+        toast.success('Logged out successfully');
     };
 
     return (

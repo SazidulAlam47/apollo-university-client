@@ -31,21 +31,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     BaseQueryApi,
     DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-    const toastId = toast.loading('Loading...');
     try {
         let result = await baseQuery(args, api, extraOptions);
-
-        const successMessage = (result.data as { message?: string })?.message;
-
-        const errorMessage = (result.error?.data as { message?: string })
-            ?.message;
-
-        if (errorMessage && result?.error?.status !== 401) {
-            toast.error(errorMessage, { id: toastId });
-        }
-        if (successMessage) {
-            toast.success(successMessage, { id: toastId });
-        }
 
         if (result?.error?.status === 401) {
             const res = await fetch(
@@ -61,13 +48,15 @@ const baseQueryWithRefreshToken: BaseQueryFn<
                 api.dispatch(setUser({ user, token }));
                 result = await baseQuery(args, api, extraOptions);
             } else {
-                toast.error('You are not Authorized', { id: toastId });
+                toast.dismiss();
+                toast.error('You are not Authorized');
                 api.dispatch(logout());
             }
         }
         return result;
     } catch (error) {
-        toast.error('Something went wrong', { id: toastId });
+        toast.dismiss();
+        toast.error('Something went wrong');
         return { error };
     }
 };

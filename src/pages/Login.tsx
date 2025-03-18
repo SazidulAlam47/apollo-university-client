@@ -11,6 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import UInputId from '../components/form/UInputId';
 import UInputPassword from '../components/form/UInputPassword';
 import { loginSchema } from '../schemas/login.schema';
+import { toast } from 'sonner';
+import { TResponse } from '../types';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -18,13 +20,19 @@ const Login = () => {
     const [login] = useLoginMutation();
 
     const onSubmit = async (data: FieldValues) => {
-        const res = await login(data).unwrap();
+        const toastId = toast.loading('Logging in...');
+        const res = (await login(data)) as TResponse;
 
-        const token = res.data.accessToken;
-        const user = verifyToken(token) as IUser;
-        dispatch(setUser({ user, token }));
-
-        navigate(`/${user.role}/dashboard`);
+        if (res.data) {
+            const token = res.data.data.accessToken as string;
+            const user = verifyToken(token) as IUser;
+            dispatch(setUser({ user, token }));
+            navigate(`/${user.role}/dashboard`);
+            toast.success(res.data.message, { id: toastId });
+        }
+        if (res.error) {
+            toast.error(res.error.data.message, { id: toastId });
+        }
     };
 
     return (

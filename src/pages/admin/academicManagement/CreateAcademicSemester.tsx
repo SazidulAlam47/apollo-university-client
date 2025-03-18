@@ -8,6 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
 import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement/academicManagementApi';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { TResponse } from '../../../types';
 
 const CreateAcademicSemester = () => {
     const [addAcademicSemester] = useAddAcademicSemesterMutation();
@@ -20,10 +22,14 @@ const CreateAcademicSemester = () => {
             name,
             code: data.name,
         };
-        const res = await addAcademicSemester(semesterData);
-
+        const toastId = toast.loading('Creating...');
+        const res = (await addAcademicSemester(semesterData)) as TResponse;
         if (res.data) {
             navigate('/admin/academic-semester');
+            toast.success(res.data.message, { id: toastId });
+        }
+        if (res.error) {
+            toast.error(res.error.data.message, { id: toastId });
         }
     };
 
@@ -59,7 +65,7 @@ const CreateAcademicSemester = () => {
                         options={monthsOptions}
                     />
 
-                    <Button htmlType="submit">Submit</Button>
+                    <Button htmlType="submit">Create</Button>
                 </UFrom>
             </Col>
         </Flex>
