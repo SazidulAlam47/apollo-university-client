@@ -16,9 +16,16 @@ type TFormConfig = {
 type UFromProps = {
     children: ReactNode;
     onSubmit: SubmitHandler<FieldValues>;
+    reset?: boolean;
 } & TFormConfig;
 
-const UFrom = ({ children, onSubmit, defaultValues, resolver }: UFromProps) => {
+const UFrom = ({
+    children,
+    onSubmit,
+    defaultValues,
+    resolver,
+    reset = false,
+}: UFromProps) => {
     const formConfig: TFormConfig = {};
 
     if (defaultValues) {
@@ -30,9 +37,16 @@ const UFrom = ({ children, onSubmit, defaultValues, resolver }: UFromProps) => {
 
     const methods = useForm(formConfig);
 
+    const submit: SubmitHandler<FieldValues> = (data) => {
+        onSubmit(data);
+        if (reset) {
+            methods.reset();
+        }
+    };
+
     return (
         <FormProvider {...methods}>
-            <Form onFinish={methods.handleSubmit(onSubmit)} layout="vertical">
+            <Form onFinish={methods.handleSubmit(submit)} layout="vertical">
                 {children}
             </Form>
         </FormProvider>

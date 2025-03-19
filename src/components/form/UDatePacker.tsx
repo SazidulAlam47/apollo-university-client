@@ -1,27 +1,30 @@
-import { Form, Input } from 'antd';
+import { DatePicker, Form } from 'antd';
 import { Controller } from 'react-hook-form';
 import UFromError from './UFromError';
 
-type UInputProps = {
-    type?: string;
+type UDatePackerProps = {
     placeholder?: string;
     name: string;
     label?: string;
 };
 
-const UInput = ({ type = 'text', placeholder, name, label }: UInputProps) => {
+const UDatePacker = ({ placeholder, name, label }: UDatePackerProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
                 name={name}
                 render={({ field, fieldState: { error } }) => (
                     <Form.Item label={label} style={{ margin: 0 }}>
-                        <Input
+                        <DatePicker
                             {...field}
-                            type={type}
                             id={name}
                             status={error ? 'error' : ''}
                             placeholder={placeholder ? placeholder : ''}
+                            style={{ width: '100%' }}
+                            format={{
+                                format: 'DD-MM-YYYY',
+                                type: 'mask',
+                            }}
                         />
                         <UFromError error={error} />
                     </Form.Item>
@@ -31,4 +34,4 @@ const UInput = ({ type = 'text', placeholder, name, label }: UInputProps) => {
     );
 };
 
-export default UInput;
+export default UDatePacker;

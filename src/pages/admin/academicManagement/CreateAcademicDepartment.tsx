@@ -1,5 +1,4 @@
 import { Button, Col, Flex } from 'antd';
-import Loader from '../../../components/loader/Loader';
 import {
     useAddAcademicDepartmentMutation,
     useGetAllAcademicFacultiesQuery,
@@ -24,11 +23,7 @@ const CreateAcademicDepartment = () => {
     const { data: academicFacultiesData, isLoading } =
         useGetAllAcademicFacultiesQuery(undefined);
 
-    if (isLoading) {
-        return <Loader />;
-    }
-
-    const academicFacultyOptions = academicFacultiesData.data.map(
+    const academicFacultyOptions = academicFacultiesData?.data.map(
         (item: TAcademicFaculty) => ({
             value: item._id,
             label: item.name,
@@ -70,6 +65,7 @@ const CreateAcademicDepartment = () => {
                             placeholder="Select Academic Faculty"
                             label="Academic Faculty"
                             options={academicFacultyOptions}
+                            disabled={isLoading}
                         />
                         <Button htmlType="submit">Create</Button>
                     </UFrom>

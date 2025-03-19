@@ -1,7 +1,6 @@
 import { Table, TableColumnsType } from 'antd';
 import { Key } from 'react';
 import { useGetAllAcademicFacultiesQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
-import Loader from '../../../components/loader/Loader';
 import { TAcademicFaculty } from '../../../types';
 
 type TTableData = {
@@ -17,17 +16,10 @@ const columns: TableColumnsType<TTableData> = [
 ];
 
 const AcademicFaculty = () => {
-    const {
-        data: academicFacultiesData,
-        isLoading,
-        isFetching,
-    } = useGetAllAcademicFacultiesQuery(undefined);
+    const { data: academicFacultiesData, isFetching } =
+        useGetAllAcademicFacultiesQuery(undefined);
 
-    if (isLoading) {
-        return <Loader />;
-    }
-
-    const tableData = academicFacultiesData!.data?.map(
+    const tableData = academicFacultiesData?.data?.map(
         ({ _id, name }: TAcademicFaculty) => ({
             key: _id,
             name,

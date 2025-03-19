@@ -12,10 +12,17 @@ type USelectProps = {
     placeholder?: string;
     name: string;
     label?: string;
-    options: TOption[];
+    options: TOption[] | undefined;
+    disabled?: boolean;
 };
 
-const USelect = ({ placeholder, name, label, options }: USelectProps) => {
+const USelect = ({
+    placeholder,
+    name,
+    label,
+    options,
+    disabled = false,
+}: USelectProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
@@ -29,6 +36,7 @@ const USelect = ({ placeholder, name, label, options }: USelectProps) => {
                                 style={{ width: '100%' }}
                                 placeholder={placeholder}
                                 options={options}
+                                disabled={disabled}
                             />
                             <UFromError error={error} />
                         </Form.Item>

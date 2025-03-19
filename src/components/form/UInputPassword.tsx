@@ -3,13 +3,20 @@ import { Controller } from 'react-hook-form';
 import { LockOutlined } from '@ant-design/icons';
 import UFromError from './UFromError';
 
-const UInputPassword = () => {
+type TInputPasswordProps = {
+    showLabel?: boolean;
+};
+
+const UInputPassword = ({ showLabel = false }: TInputPasswordProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
                 name="password"
                 render={({ field, fieldState: { error } }) => (
-                    <Form.Item style={{ margin: 0 }}>
+                    <Form.Item
+                        style={{ margin: 0 }}
+                        label={showLabel ? 'Password' : ''}
+                    >
                         <Input.Password
                             {...field}
                             type="password"

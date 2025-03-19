@@ -4,7 +4,6 @@ import { useGetAllAcademicSemestersQuery } from '../../../redux/features/admin/a
 import { TAcademicSemester, TQueryParam } from '../../../types';
 import { Key, useState } from 'react';
 import { filterSemesterNames, filterYears } from '../../../constants/semester';
-import Loader from '../../../components/loader/Loader';
 
 type TTableData = Pick<
     TAcademicSemester,
@@ -36,17 +35,10 @@ const columns: TableColumnsType<TTableData> = [
 
 const AcademicSemester = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
-    const {
-        data: semesterData,
-        isLoading,
-        isFetching,
-    } = useGetAllAcademicSemestersQuery(params);
+    const { data: semesterData, isFetching } =
+        useGetAllAcademicSemestersQuery(params);
 
-    if (isLoading) {
-        return <Loader />;
-    }
-
-    const tableData = semesterData!.data?.map(
+    const tableData = semesterData?.data?.map(
         ({ _id, name, startMonth, endMonth, year }) => ({
             key: _id,
             name,

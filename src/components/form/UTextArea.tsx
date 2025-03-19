@@ -1,27 +1,28 @@
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import { Controller } from 'react-hook-form';
 import UFromError from './UFromError';
+import TextArea from 'antd/es/input/TextArea';
 
-type UInputProps = {
-    type?: string;
+type UTextAreaProps = {
     placeholder?: string;
     name: string;
     label?: string;
+    row?: number;
 };
 
-const UInput = ({ type = 'text', placeholder, name, label }: UInputProps) => {
+const UTextArea = ({ placeholder, name, label, row = 3 }: UTextAreaProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
                 name={name}
                 render={({ field, fieldState: { error } }) => (
                     <Form.Item label={label} style={{ margin: 0 }}>
-                        <Input
+                        <TextArea
                             {...field}
-                            type={type}
                             id={name}
                             status={error ? 'error' : ''}
                             placeholder={placeholder ? placeholder : ''}
+                            rows={row}
                         />
                         <UFromError error={error} />
                     </Form.Item>
@@ -31,4 +32,4 @@ const UInput = ({ type = 'text', placeholder, name, label }: UInputProps) => {
     );
 };
 
-export default UInput;
+export default UTextArea;

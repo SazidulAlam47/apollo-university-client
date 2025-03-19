@@ -48,7 +48,7 @@ const Login = () => {
                 <UFrom
                     onSubmit={onSubmit}
                     resolver={zodResolver(loginSchema)}
-                    defaultValues={{ id: 'A-0001', password: 'Admin123' }}
+                    defaultValues={{ id: 'A-0001', password: 'Admin123' }} //TODO: only for development
                 >
                     <UInputId />
                     <UInputPassword />
