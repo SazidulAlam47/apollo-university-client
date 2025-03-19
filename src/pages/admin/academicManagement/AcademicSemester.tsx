@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
-import { useGetAllAcademicSemestersQuery } from '../../../redux/features/admin/academicManagement/academicManagementApi';
+import { useGetAllAcademicSemestersQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 import { TAcademicSemester, TQueryParam } from '../../../types';
 import { Key, useState } from 'react';
 import { filterSemesterNames, filterYears } from '../../../constants/semester';

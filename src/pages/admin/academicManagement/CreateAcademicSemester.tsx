@@ -6,7 +6,7 @@ import { nameOptions, yearOptions } from '../../../constants/semester';
 import { monthsOptions } from '../../../constants/global';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { academicSemesterSchema } from '../../../schemas/academicManagement.schema';
-import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement/academicManagementApi';
+import { useAddAcademicSemesterMutation } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { TAcademicSemester, TResponse } from '../../../types';

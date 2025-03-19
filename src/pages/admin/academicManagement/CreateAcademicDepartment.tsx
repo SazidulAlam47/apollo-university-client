@@ -3,7 +3,7 @@ import Loader from '../../../components/loader/Loader';
 import {
     useAddAcademicDepartmentMutation,
     useGetAllAcademicFacultiesQuery,
-} from '../../../redux/features/admin/academicManagement/academicManagementApi';
+} from '../../../redux/features/admin/academicManagement/academicManagement.api';
 import UFrom from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
 import { zodResolver } from '@hookform/resolvers/zod';

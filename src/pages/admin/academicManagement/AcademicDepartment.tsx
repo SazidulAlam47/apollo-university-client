@@ -9,7 +9,7 @@ import Loader from '../../../components/loader/Loader';
 import {
     useGetAllAcademicDepartmentsQuery,
     useGetAllAcademicFacultiesQuery,
-} from '../../../redux/features/admin/academicManagement/academicManagementApi';
+} from '../../../redux/features/admin/academicManagement/academicManagement.api';
 
 type TTableData = Pick<TAcademicDepartment, 'name' | 'academicFaculty'> & {
     key: Key;

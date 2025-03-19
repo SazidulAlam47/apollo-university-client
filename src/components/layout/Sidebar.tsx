@@ -6,7 +6,7 @@ import adminPaths from '../../routes/adminPaths';
 import facultyPaths from '../../routes/facultyPaths';
 import studentPaths from '../../routes/studentPaths';
 import { useAppSelector } from '../../redux/hooks';
-import { currentUser } from '../../redux/features/auth/authSlice';
+import { currentUser } from '../../redux/features/auth/auth.slice';
 
 const { Sider } = Layout;
 

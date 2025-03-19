@@ -2,7 +2,7 @@ import { Button, Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAppDispatch } from '../../redux/hooks';
-import { logout } from '../../redux/features/auth/authSlice';
+import { logout } from '../../redux/features/auth/auth.slice';
 import { toast } from 'sonner';
 const { Header, Content } = Layout;
 

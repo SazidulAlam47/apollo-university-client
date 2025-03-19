@@ -3,7 +3,7 @@ import UFrom from '../../../components/form/UFrom';
 
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { useAddAcademicFacultyMutation } from '../../../redux/features/admin/academicManagement/academicManagementApi';
+import { useAddAcademicFacultyMutation } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { academicFacultySchema } from '../../../schemas/academicManagement.schema';
 import UInput from '../../../components/form/UInput';

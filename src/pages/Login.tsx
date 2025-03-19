@@ -1,8 +1,8 @@
 import { Button, Col, Flex } from 'antd';
-import { useLoginMutation } from '../redux/features/auth/authApi';
+import { useLoginMutation } from '../redux/features/auth/auth.api';
 import verifyToken from '../utils/verifyToken';
 import { useAppDispatch } from '../redux/hooks';
-import { IUser, setUser } from '../redux/features/auth/authSlice';
+import { IUser, setUser } from '../redux/features/auth/auth.slice';
 import logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import UFrom from '../components/form/UFrom';

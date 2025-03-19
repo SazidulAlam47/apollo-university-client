@@ -9,7 +9,7 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
 import verifyToken from '../../utils/verifyToken';
-import { IUser, logout, setUser } from '../features/auth/authSlice';
+import { IUser, logout, setUser } from '../features/auth/auth.slice';
 import { toast } from 'sonner';
 
 const baseQuery = fetchBaseQuery({

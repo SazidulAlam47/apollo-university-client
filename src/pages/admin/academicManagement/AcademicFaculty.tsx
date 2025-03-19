@@ -1,6 +1,6 @@
 import { Table, TableColumnsType } from 'antd';
 import { Key } from 'react';
-import { useGetAllAcademicFacultiesQuery } from '../../../redux/features/admin/academicManagement/academicManagementApi';
+import { useGetAllAcademicFacultiesQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 import Loader from '../../../components/loader/Loader';
 import { TAcademicFaculty } from '../../../types';
 
