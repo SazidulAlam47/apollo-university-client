@@ -23,6 +23,8 @@ import { useAddStudentMutation } from '../../../redux/features/admin/userManagem
 import { toast } from 'sonner';
 import UPictureInput from '../../../components/form/UPictureInput';
 import UInputPassword from '../../../components/form/UInputPassword';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createStudentSchema } from '../../../schemas/userManagement.schema';
 
 const studentDummyData = {
     name: {
@@ -31,6 +33,9 @@ const studentDummyData = {
         lastName: 'Taylor',
     },
     gender: 'Male',
+
+    email: 'something@any.com',
+    contactNumber: '456456456456',
 
     bloodGroup: 'O-',
 
@@ -53,6 +58,9 @@ const studentDummyData = {
         contactNo: '+8801223344556',
         address: '369 Local Guardian Lane, Comilla, Bangladesh',
     },
+
+    academicDepartment: '679ba9e7aae8ecca99ffb394',
+    admissionSemester: '679f72de210d8e79bcda1434',
 };
 
 const CreateStudent = () => {
@@ -101,6 +109,8 @@ const CreateStudent = () => {
         delete data?.image;
         formData.append('data', JSON.stringify(studentData));
 
+        // console.log(Object.fromEntries(formData));
+
         const toastId = toast.loading('Creating...');
         const res = (await addStudent(formData)) as TResponse<TStudent>;
         if (res.data) {
@@ -119,7 +129,7 @@ const CreateStudent = () => {
                 <Col span={24}>
                     <UFrom
                         onSubmit={handleSubmit}
-                        // resolver={zodResolver(student)}
+                        resolver={zodResolver(createStudentSchema)}
                         defaultValues={studentDummyData} //TODO: only for development
                         reset
                     >
@@ -314,7 +324,7 @@ const CreateStudent = () => {
                                 />
                             </Col>
                         </Row>
-                        <Divider>Picture And Password</Divider>
+                        <Divider>Picture And Password (Optional)</Divider>
                         <Row gutter={10}>
                             <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
                                 <UPictureInput />

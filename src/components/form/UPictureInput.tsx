@@ -1,6 +1,5 @@
 import { Button, Form, Upload, UploadFile, UploadProps } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
-import UFromError from './UFromError';
 import { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 
@@ -20,7 +19,9 @@ const UPictureInput = () => {
             const isPNG =
                 file.type === 'image/png' || file.type === 'image/jpeg';
             if (!isPNG) {
-                setFileError('Please select a jpg or png file');
+                setFileError(
+                    'Please select a jpg or png file or leave it empty',
+                );
                 setFileList([]);
             } else {
                 setFileList([file]);
@@ -43,10 +44,7 @@ const UPictureInput = () => {
         <div style={{ margin: '12px 0' }}>
             <Controller
                 name="image"
-                render={({
-                    field: { onChange, ...field },
-                    fieldState: { error },
-                }) => (
+                render={({ field: { onChange, ...field } }) => (
                     <Form.Item label="Picture" style={{ margin: 0 }}>
                         <Upload
                             {...props}
@@ -64,7 +62,7 @@ const UPictureInput = () => {
                                 Select Picture
                             </Button>
                         </Upload>
-                        <UFromError error={error} />
+
                         {fileError && (
                             <p style={{ color: '#ff4d4f', marginTop: '3px' }}>
                                 {fileError}
