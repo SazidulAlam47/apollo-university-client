@@ -10,6 +10,7 @@ import CreateFaculty from '../pages/admin/userManagement/CreateFaculty';
 import CreateStudent from '../pages/admin/userManagement/CreateStudent';
 import StudentDetails from '../pages/admin/userManagement/StudentDetails';
 import StudentsData from '../pages/admin/userManagement/StudentsData';
+import StudentUpdate from '../pages/admin/userManagement/StudentUpdate';
 import { TPath } from '../types';
 
 const adminPaths: TPath[] = [
@@ -69,6 +70,10 @@ const adminPaths: TPath[] = [
             {
                 path: 'students-data/:id',
                 element: <StudentDetails />,
+            },
+            {
+                path: 'student-update/:id',
+                element: <StudentUpdate />,
             },
             {
                 name: 'Create Faculty',

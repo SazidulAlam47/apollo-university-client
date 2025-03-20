@@ -18,8 +18,9 @@ import { Link } from 'react-router-dom';
 import Loader from '../../../components/loader/Loader';
 import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 
-type TTableData = Pick<TStudent, 'fullName'> & {
+type TTableData = Pick<TStudent, '_id' | 'fullName' | 'id' | 'profileImg'> & {
     key: Key;
+    academicDepartment: string;
 };
 
 const StudentsData = () => {
@@ -87,9 +88,9 @@ const StudentsData = () => {
             render: (_value, record) => (
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <Link to={`/admin/students-data/${record.key}`}>
-                        <Button>View</Button>
+                        <Button>Details</Button>
                     </Link>
-                    <Link to={`/admin/update-student/${record.key}`}>
+                    <Link to={`/admin/student-update/${record.key}`}>
                         <Button>Update</Button>
                     </Link>
                     <Button>Block</Button>

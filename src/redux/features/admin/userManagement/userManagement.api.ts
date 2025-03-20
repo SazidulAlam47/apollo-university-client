@@ -16,7 +16,9 @@ const userManagementApi = baseApi.injectEndpoints({
                 const params = new URLSearchParams();
                 if (args?.length) {
                     args.forEach((item) => {
-                        params.append(item.name, item.value as string);
+                        if (item.value) {
+                            params.append(item.name, item.value as string);
+                        }
                     });
                 }
 

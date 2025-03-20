@@ -26,43 +26,6 @@ import UInputPassword from '../../../components/form/UInputPassword';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createStudentSchema } from '../../../schemas/userManagement.schema';
 
-const studentDummyData = {
-    name: {
-        firstName: 'Noah',
-        middleName: 'M.',
-        lastName: 'Taylor',
-    },
-    gender: 'Male',
-
-    email: 'something@any.com',
-    contactNumber: '456456456456',
-
-    bloodGroup: 'O-',
-
-    emergencyContact: '+8801884455667',
-    presentAddress: '951 Willow Lane, Narayanganj, Bangladesh',
-    permanentAddress: '753 Redwood Road, Barishal, Bangladesh',
-
-    guardian: {
-        fatherName: 'James Taylor',
-        fatherOccupation: 'Scientist',
-        fatherContact: '+8801556677881',
-        motherName: 'Charlotte Taylor',
-        motherOccupation: 'Writer',
-        motherContact: '+8801445566772',
-    },
-
-    localGuardian: {
-        name: 'Benjamin Carter',
-        occupation: 'Architect',
-        contactNo: '+8801223344556',
-        address: '369 Local Guardian Lane, Comilla, Bangladesh',
-    },
-
-    academicDepartment: '679ba9e7aae8ecca99ffb394',
-    admissionSemester: '679f72de210d8e79bcda1434',
-};
-
 const CreateStudent = () => {
     const {
         data: academicDepartmentData,
@@ -130,7 +93,6 @@ const CreateStudent = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(createStudentSchema)}
-                        defaultValues={studentDummyData} //TODO: only for development
                         reset
                     >
                         <Divider>Personal Info</Divider>
