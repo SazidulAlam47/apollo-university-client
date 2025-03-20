@@ -36,6 +36,7 @@ const AcademicFaculty = () => {
                 columns={columns}
                 dataSource={tableData}
                 showSorterTooltip={{ target: 'sorter-icon' }}
+                pagination={false}
             />
         </>
     );

@@ -87,6 +87,7 @@ const AcademicDepartment = () => {
                 dataSource={tableData}
                 onChange={onChange}
                 showSorterTooltip={{ target: 'sorter-icon' }}
+                pagination={false}
             />
         </>
     );

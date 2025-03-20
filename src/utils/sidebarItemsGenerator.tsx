@@ -5,8 +5,8 @@ const sidebarItemsGenerator = (
     paths: TPath[],
     role: 'admin' | 'faculty' | 'student',
 ) => {
-    return paths.reduce((acc: TSidebarItem[], item: TPath) => {
-        if (item.path) {
+    return paths.reduce((acc: TSidebarItem[], item) => {
+        if (item.path && item.name) {
             acc.push({
                 key: item.name,
                 label: (
@@ -14,18 +14,26 @@ const sidebarItemsGenerator = (
                 ),
             });
         }
-        if (item.children) {
+        if (item.children?.length && item.name) {
             acc.push({
                 key: item.name,
                 label: item.name,
-                children: item.children.map((child) => ({
-                    key: child.name,
-                    label: (
-                        <NavLink to={`/${role}/${child.path}`}>
-                            {child.name}
-                        </NavLink>
-                    ),
-                })),
+                children: item.children.reduce(
+                    (accChild: TSidebarItem[], itemChild) => {
+                        if (itemChild.path && itemChild.name) {
+                            accChild.push({
+                                key: itemChild.name,
+                                label: (
+                                    <NavLink to={`/${role}/${itemChild.path}`}>
+                                        {itemChild.name}
+                                    </NavLink>
+                                ),
+                            });
+                        }
+                        return accChild;
+                    },
+                    [],
+                ),
             });
         }
         return acc;

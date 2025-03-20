@@ -10,10 +10,12 @@ const routesGenerator = (paths: TPath[]) => {
         }
         if (item.children?.length) {
             item.children.forEach((child) => {
-                acc.push({
-                    path: child.path,
-                    element: child.element,
-                });
+                if (child.path && child.element) {
+                    acc.push({
+                        path: child.path,
+                        element: child.element,
+                    });
+                }
             });
         }
         return acc;

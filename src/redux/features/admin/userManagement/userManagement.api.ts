@@ -1,3 +1,4 @@
+import { TQueryParam } from '../../../../types';
 import { baseApi } from '../../../api/baseApi';
 
 const userManagementApi = baseApi.injectEndpoints({
@@ -10,7 +11,25 @@ const userManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['student'],
         }),
+        getAllStudents: build.query({
+            query: (args: TQueryParam[]) => {
+                const params = new URLSearchParams();
+                if (args?.length) {
+                    args.forEach((item) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+
+                return {
+                    url: '/students',
+                    method: 'GET',
+                    params,
+                };
+            },
+            providesTags: ['student'],
+        }),
     }),
 });
 
-export const { useAddStudentMutation } = userManagementApi;
+export const { useAddStudentMutation, useGetAllStudentsQuery } =
+    userManagementApi;
