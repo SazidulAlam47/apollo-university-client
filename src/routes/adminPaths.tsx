@@ -9,6 +9,7 @@ import CreateAdmin from '../pages/admin/userManagement/CreateAdmin';
 import CreateFaculty from '../pages/admin/userManagement/CreateFaculty';
 import CreateStudent from '../pages/admin/userManagement/CreateStudent';
 import FacultiesData from '../pages/admin/userManagement/FacultiesData';
+import FacultyDetails from '../pages/admin/userManagement/FacultyDetails';
 import StudentDetails from '../pages/admin/userManagement/StudentDetails';
 import StudentsData from '../pages/admin/userManagement/StudentsData';
 import StudentUpdate from '../pages/admin/userManagement/StudentUpdate';
@@ -85,6 +86,10 @@ const adminPaths: TPath[] = [
                 name: 'Faculty',
                 path: 'faculties-data',
                 element: <FacultiesData />,
+            },
+            {
+                path: 'faculties-data/:id',
+                element: <FacultyDetails />,
             },
             {
                 name: 'Create Admin',

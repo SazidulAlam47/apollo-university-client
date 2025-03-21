@@ -13,7 +13,7 @@ const StudentDetails = () => {
         return <Loader />;
     }
 
-    if (!studentData?.data) {
+    if (!studentData?.success) {
         return (
             <Flex justify="center" align="center" style={{ height: '85vh' }}>
                 <h2>No student data found.</h2>
