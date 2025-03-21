@@ -19,7 +19,7 @@ import { Button, Col, Divider, Row } from 'antd';
 import UFrom from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { updateStudentSchema } from '../../../schemas/userManagement.schema';
+import { studentSchema } from '../../../schemas/userManagement.schema';
 import USelect from '../../../components/form/USelect';
 import {
     bloodGroupOptions,
@@ -74,10 +74,6 @@ const StudentUpdate = () => {
     );
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-        if (!data?.dateOfBirth) {
-            delete data?.dateOfBirth;
-        }
-
         const studentData = {
             student: data,
         };
@@ -124,7 +120,7 @@ const StudentUpdate = () => {
                 <Col span={24}>
                     <UFrom
                         onSubmit={handleSubmit}
-                        resolver={zodResolver(updateStudentSchema)}
+                        resolver={zodResolver(studentSchema)}
                         defaultValues={defaultStudentValues}
                         reset
                     >

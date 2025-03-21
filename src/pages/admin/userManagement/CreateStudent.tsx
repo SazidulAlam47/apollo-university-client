@@ -24,7 +24,7 @@ import { toast } from 'sonner';
 import UPictureInput from '../../../components/form/UPictureInput';
 import UInputPassword from '../../../components/form/UInputPassword';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createStudentSchema } from '../../../schemas/userManagement.schema';
+import { studentSchema } from '../../../schemas/userManagement.schema';
 
 const CreateStudent = () => {
     const {
@@ -92,7 +92,7 @@ const CreateStudent = () => {
                 <Col span={24}>
                     <UFrom
                         onSubmit={handleSubmit}
-                        resolver={zodResolver(createStudentSchema)}
+                        resolver={zodResolver(studentSchema)}
                         reset
                     >
                         <Divider>Personal Info</Divider>

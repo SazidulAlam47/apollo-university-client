@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const createStudentSchema = z.object({
+export const studentSchema = z.object({
     password: z.string().optional(),
     name: z.object({
         firstName: z
@@ -81,42 +81,46 @@ export const createStudentSchema = z.object({
     image: z.any(),
 });
 
-export const updateStudentSchema = z.object({
+export const facultySchema = z.object({
     password: z.string().optional(),
-    name: z
-        .object({
-            firstName: z.string().optional(),
-            middleName: z.string().optional(),
-            lastName: z.string().optional(),
-        })
-        .optional(),
-    gender: z.string().optional(),
-    dateOfBirth: z.any().optional(),
-    email: z.string().email({ message: 'Invalid Email Address' }).optional(),
-    bloodGroup: z.string().optional(),
-    contactNumber: z.string().optional(),
-    emergencyContact: z.string().optional(),
-    presentAddress: z.string().optional(),
-    permanentAddress: z.string().optional(),
-    guardian: z
-        .object({
-            fatherName: z.string().optional(),
-            fatherOccupation: z.string().optional(),
-            fatherContact: z.string().optional(),
-            motherName: z.string().optional(),
-            motherOccupation: z.string().optional(),
-            motherContact: z.string().optional(),
-        })
-        .optional(),
-    localGuardian: z
-        .object({
-            name: z.string().optional(),
-            occupation: z.string().optional(),
-            contactNo: z.string().optional(),
-            address: z.string().optional(),
-        })
-        .optional(),
-    academicDepartment: z.string().optional(),
-    admissionSemester: z.string().optional(),
-    image: z.any().optional(),
+    name: z.object({
+        firstName: z
+            .string({ required_error: 'First Name is Required' })
+            .min(1, { message: 'First Name is Required' }),
+        middleName: z
+            .string({ required_error: 'Middle Name is Required' })
+            .min(1, { message: 'Middle Name is Required' }),
+        lastName: z
+            .string({ required_error: 'Last Name is Required' })
+            .min(1, { message: 'Last Name is Required' }),
+    }),
+    gender: z
+        .string({ required_error: 'Gender is Required' })
+        .min(1, { message: 'Gender is Required' }),
+    dateOfBirth: z.any().refine((val) => val !== undefined, {
+        message: 'Date of Birth is Required',
+    }),
+    email: z
+        .string({ required_error: 'Email is Required' })
+        .min(1, { message: 'Email is Required' })
+        .email({ message: 'Invalid Email Address' }),
+    bloodGroup: z
+        .string({ required_error: 'Blood Group is Required' })
+        .min(1, { message: 'Blood Group is Required' }),
+    contactNumber: z
+        .string({ required_error: 'Contact Number is Required' })
+        .min(1, { message: 'Contact Number is Required' }),
+    presentAddress: z
+        .string({ required_error: 'Present Address is Required' })
+        .min(1, { message: 'Present Address is Required' }),
+    permanentAddress: z
+        .string({ required_error: 'Permanent Address is Required' })
+        .min(1, { message: 'Permanent Address is Required' }),
+    academicDepartment: z
+        .string({ required_error: 'Academic Department is Required' })
+        .min(1, { message: 'Academic Department is Required' }),
+    designation: z
+        .string({ required_error: 'Designation is Required' })
+        .min(1, { message: 'Designation is Required' }),
+    image: z.any(),
 });

@@ -4,6 +4,17 @@ import {
     TAcademicSemester,
 } from './academicManagement.type';
 
+export type TGender = 'Male' | 'Female';
+export type TBloodGroup =
+    | 'A+'
+    | 'A-'
+    | 'B+'
+    | 'B-'
+    | 'AB+'
+    | 'AB-'
+    | 'O+'
+    | 'O-';
+
 export type TName = {
     firstName: string;
     middleName: string;
@@ -31,12 +42,12 @@ export type TStudent = {
     id: string;
     user: TUser;
     name: TName;
-    gender: string;
+    gender: TGender;
     dateOfBirth: string;
     email: string;
     contactNumber: string;
     emergencyContact: string;
-    bloodGroup: string;
+    bloodGroup: TBloodGroup;
     presentAddress: string;
     permanentAddress: string;
     guardian: TGuardian;
@@ -46,8 +57,6 @@ export type TStudent = {
     academicFaculty: TAcademicFaculty;
     admissionSemester: TAcademicSemester;
     isDeleted: boolean;
-    createdAt: string;
-    updatedAt: string;
     fullName: string;
 };
 
@@ -58,5 +67,22 @@ export type TUser = {
     needsPasswordChange: boolean;
     role: string;
     status: 'in-progress' | 'blocked';
+    isDeleted: boolean;
+};
+
+export type TFaculty = {
+    name: TName;
+    fullName: string;
+    id: string;
+    user: TUser;
+    designation: string;
+    gender: TGender;
+    dateOfBirth: string;
+    email: string;
+    contactNumber: string;
+    bloodGroup: TBloodGroup;
+    presentAddress: string;
+    permanentAddress: string;
+    academicDepartment: TAcademicDepartment;
     isDeleted: boolean;
 };
