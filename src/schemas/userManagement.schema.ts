@@ -80,3 +80,43 @@ export const createStudentSchema = z.object({
         .min(1, { message: 'Admission Semester is Required' }),
     image: z.any(),
 });
+
+export const updateStudentSchema = z.object({
+    password: z.string().optional(),
+    name: z
+        .object({
+            firstName: z.string().optional(),
+            middleName: z.string().optional(),
+            lastName: z.string().optional(),
+        })
+        .optional(),
+    gender: z.string().optional(),
+    dateOfBirth: z.any().optional(),
+    email: z.string().email({ message: 'Invalid Email Address' }).optional(),
+    bloodGroup: z.string().optional(),
+    contactNumber: z.string().optional(),
+    emergencyContact: z.string().optional(),
+    presentAddress: z.string().optional(),
+    permanentAddress: z.string().optional(),
+    guardian: z
+        .object({
+            fatherName: z.string().optional(),
+            fatherOccupation: z.string().optional(),
+            fatherContact: z.string().optional(),
+            motherName: z.string().optional(),
+            motherOccupation: z.string().optional(),
+            motherContact: z.string().optional(),
+        })
+        .optional(),
+    localGuardian: z
+        .object({
+            name: z.string().optional(),
+            occupation: z.string().optional(),
+            contactNo: z.string().optional(),
+            address: z.string().optional(),
+        })
+        .optional(),
+    academicDepartment: z.string().optional(),
+    admissionSemester: z.string().optional(),
+    image: z.any().optional(),
+});

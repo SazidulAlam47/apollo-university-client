@@ -36,6 +36,14 @@ const userManagementApi = baseApi.injectEndpoints({
             }),
             providesTags: ['student'],
         }),
+        updateStudent: build.mutation({
+            query: ({ data, id }: { data: FormData; id: string }) => ({
+                url: `/students/${id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+            invalidatesTags: ['student'],
+        }),
     }),
 });
 
@@ -43,4 +51,5 @@ export const {
     useAddStudentMutation,
     useGetAllStudentsQuery,
     useGetSingleStudentQuery,
+    useUpdateStudentMutation,
 } = userManagementApi;

@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom';
-import { Flex, Table } from 'antd';
+import { Link, useParams } from 'react-router-dom';
+import { Button, Flex, Table } from 'antd';
 import { useGetSingleStudentQuery } from '../../../redux/features/admin/userManagement/userManagement.api';
 import Loader from '../../../components/loader/Loader';
 
@@ -76,27 +76,40 @@ const StudentDetails = () => {
         {
             key: '13',
             field: 'Faculty',
-            value: student.academicDepartment.academicFaculty.name,
+            value: student.academicFaculty.name,
         },
         {
             key: '14',
             field: 'Admission Semester',
-            value: `${student.admissionSemester.name} ${student.admissionSemester.year}`,
+            value: `${student.admissionSemester.name} - ${student.admissionSemester.year}`,
         },
     ];
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <img
-                src={student.profileImg}
-                alt={student.fullName}
-                style={{
-                    width: 150,
-                    height: 150,
-                    borderRadius: '50%',
-                    marginBottom: 20,
-                }}
-            />
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <Flex justify="space-between">
+                <div />
+                <img
+                    src={student.profileImg}
+                    alt={student.fullName}
+                    style={{
+                        width: 150,
+                        height: 150,
+                        borderRadius: '50%',
+                        marginBottom: 20,
+                    }}
+                />
+                <Link
+                    to={`/admin/student-update/${id}`}
+                    style={{
+                        display: 'block',
+                        margin: '20px 0',
+                        alignSelf: 'end',
+                    }}
+                >
+                    <Button>Update Student</Button>
+                </Link>
+            </Flex>
             <Table columns={columns} dataSource={data} pagination={false} />
         </div>
     );
