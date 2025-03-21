@@ -15,10 +15,8 @@ import {
     Input,
     Modal,
 } from 'antd';
-import {
-    useChangeUserStatusMutation,
-    useGetAllStudentsQuery,
-} from '../../../redux/features/admin/userManagement/userManagement.api';
+import { useGetAllStudentsQuery } from '../../../redux/features/admin/userManagement/studentManagement.api';
+import { useChangeUserStatusMutation } from '../../../redux/features/admin/userManagement/userManagement.api';
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/loader/Loader';
 import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';

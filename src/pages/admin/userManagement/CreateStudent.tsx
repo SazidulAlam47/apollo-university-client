@@ -19,7 +19,7 @@ import {
     TStudent,
 } from '../../../types';
 import UDatePacker from '../../../components/form/UDatePacker';
-import { useAddStudentMutation } from '../../../redux/features/admin/userManagement/userManagement.api';
+import { useAddStudentMutation } from '../../../redux/features/admin/userManagement/studentManagement.api';
 import { toast } from 'sonner';
 import UPictureInput from '../../../components/form/UPictureInput';
 import UInputPassword from '../../../components/form/UInputPassword';

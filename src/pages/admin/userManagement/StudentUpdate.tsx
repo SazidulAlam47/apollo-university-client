@@ -6,7 +6,7 @@ import {
 import {
     useGetSingleStudentQuery,
     useUpdateStudentMutation,
-} from '../../../redux/features/admin/userManagement/userManagement.api';
+} from '../../../redux/features/admin/userManagement/studentManagement.api';
 import {
     TAcademicDepartment,
     TAcademicSemester,

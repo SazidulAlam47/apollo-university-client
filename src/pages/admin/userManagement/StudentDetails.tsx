@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Button, Flex, Table } from 'antd';
-import { useGetSingleStudentQuery } from '../../../redux/features/admin/userManagement/userManagement.api';
+import { useGetSingleStudentQuery } from '../../../redux/features/admin/userManagement/studentManagement.api';
 import Loader from '../../../components/loader/Loader';
 
 const StudentDetails = () => {

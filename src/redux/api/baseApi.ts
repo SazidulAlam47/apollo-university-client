@@ -71,5 +71,6 @@ export const baseApi = createApi({
         'academicDepartment',
         'student',
         'user',
+        'faculty',
     ],
 });
