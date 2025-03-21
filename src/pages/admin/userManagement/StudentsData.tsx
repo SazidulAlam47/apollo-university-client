@@ -22,6 +22,7 @@ import {
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/loader/Loader';
 import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 
 type TTableData = Pick<
     TStudent,
@@ -38,34 +39,29 @@ const StudentsData = () => {
 
     const [modal, contextHolder] = Modal.useModal();
 
-    const confirm = (user: TUser) => {
-        modal
-            .confirm({
-                title: 'Confirm',
-                content: `Are you sure you want to ${
-                    user.status === 'in-progress' ? 'Block' : 'Unblock'
-                } ${user.id}?`,
-                okText: `${user.status === 'in-progress' ? 'Block' : 'Unblock'}`,
-                cancelText: 'Cancel',
-            })
-            .then(
-                (confirmed) => {
-                    if (confirmed) {
-                        if (user.status === 'in-progress') {
-                            changeUserStatus({
-                                status: 'blocked',
-                                id: user._id,
-                            });
-                        } else if (user.status === 'blocked') {
-                            changeUserStatus({
-                                status: 'in-progress',
-                                id: user._id,
-                            });
-                        }
-                    }
-                },
-                () => {},
-            );
+    const confirm = async (user: TUser) => {
+        modal.confirm({
+            title: 'Confirm',
+            icon: <ExclamationCircleFilled />,
+            content: `Are you sure you want to ${
+                user.status === 'in-progress' ? 'Block' : 'Unblock'
+            } ${user.id}?`,
+            okText: `${user.status === 'in-progress' ? 'Block' : 'Unblock'}`,
+            cancelText: 'Cancel',
+            async onOk() {
+                if (user.status === 'in-progress') {
+                    await changeUserStatus({
+                        status: 'blocked',
+                        id: user._id,
+                    });
+                } else if (user.status === 'blocked') {
+                    await changeUserStatus({
+                        status: 'in-progress',
+                        id: user._id,
+                    });
+                }
+            },
+        });
     };
 
     const [params, setParams] = useState<TQueryParam[]>([]);
