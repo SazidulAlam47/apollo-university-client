@@ -71,6 +71,7 @@ export type TUser = {
 };
 
 export type TFaculty = {
+    _id: string;
     name: TName;
     fullName: string;
     id: string;
@@ -84,5 +85,6 @@ export type TFaculty = {
     presentAddress: string;
     permanentAddress: string;
     academicDepartment: TAcademicDepartment;
+    profileImg: string;
     isDeleted: boolean;
 };
