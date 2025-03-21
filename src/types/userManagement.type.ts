@@ -29,7 +29,7 @@ export type TLocalGuardian = {
 export type TStudent = {
     _id: string;
     id: string;
-    user: string;
+    user: TUser;
     name: TName;
     gender: string;
     dateOfBirth: string;
@@ -49,4 +49,14 @@ export type TStudent = {
     createdAt: string;
     updatedAt: string;
     fullName: string;
+};
+
+export type TUser = {
+    _id: string;
+    id: string;
+    email: string;
+    needsPasswordChange: boolean;
+    role: string;
+    status: 'in-progress' | 'blocked';
+    isDeleted: boolean;
 };

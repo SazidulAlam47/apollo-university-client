@@ -42,7 +42,7 @@ const StudentDetails = () => {
         {
             key: '3',
             field: 'Date of Birth',
-            value: new Date(student.dateOfBirth).toLocaleDateString(),
+            value: new Date(student.dateOfBirth).toLocaleDateString('en-GB'),
         },
         { key: '4', field: 'Email', value: student.email },
         { key: '5', field: 'Contact Number', value: student.contactNumber },
@@ -59,14 +59,24 @@ const StudentDetails = () => {
             value: student.permanentAddress,
         },
         {
-            key: '10',
-            field: 'Guardian',
-            value: `${student.guardian.fatherName} (Father) / ${student.guardian.motherName} (Mother)`,
+            key: '10.1',
+            field: 'Father',
+            value: `${student.guardian.fatherName} (${student.guardian.fatherOccupation}). Contact: ${student.guardian.fatherContact}`,
         },
         {
-            key: '11',
+            key: '10.2',
+            field: 'Mother',
+            value: `${student.guardian.motherName} (${student.guardian.motherOccupation}). Contact: ${student.guardian.motherContact}`,
+        },
+        {
+            key: '11.1',
             field: 'Local Guardian',
-            value: student.localGuardian.name,
+            value: `${student.localGuardian.name} (${student.localGuardian.occupation}). Contact: ${student.localGuardian.contactNo}`,
+        },
+        {
+            key: '11.2',
+            field: 'Local Guardian Address',
+            value: student.localGuardian.address,
         },
         {
             key: '12',

@@ -44,6 +44,20 @@ const userManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['student'],
         }),
+        changeUserStatus: build.mutation({
+            query: ({
+                status,
+                id,
+            }: {
+                status: 'in-progress' | 'blocked';
+                id: string;
+            }) => ({
+                url: `/users/change-status/${id}`,
+                method: 'PATCH',
+                body: { status },
+            }),
+            invalidatesTags: ['student', 'user'],
+        }),
     }),
 });
 
@@ -52,4 +66,5 @@ export const {
     useGetAllStudentsQuery,
     useGetSingleStudentQuery,
     useUpdateStudentMutation,
+    useChangeUserStatusMutation,
 } = userManagementApi;

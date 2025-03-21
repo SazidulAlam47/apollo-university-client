@@ -49,7 +49,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
                 result = await baseQuery(args, api, extraOptions);
             } else {
                 toast.dismiss();
-                toast.error('You are not Authorized');
+                toast.error('Session timeout');
                 api.dispatch(logout());
             }
         }
@@ -70,5 +70,6 @@ export const baseApi = createApi({
         'academicFaculty',
         'academicDepartment',
         'student',
+        'user',
     ],
 });

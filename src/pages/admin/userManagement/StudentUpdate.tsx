@@ -29,6 +29,10 @@ import UDatePacker from '../../../components/form/UDatePacker';
 import UTextArea from '../../../components/form/UTextArea';
 import UPictureInput from '../../../components/form/UPictureInput';
 import Loader from '../../../components/loader/Loader';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
+dayjs.locale('zh-cn');
 
 const StudentUpdate = () => {
     const { id } = useParams();
@@ -47,7 +51,11 @@ const StudentUpdate = () => {
 
     const [updateStudent] = useUpdateStudentMutation();
 
-    if (isStudentLoading) {
+    if (
+        isStudentLoading ||
+        isAcademicDepartmentLoading ||
+        isAcademicSemesterLoading
+    ) {
         return <Loader />;
     }
 
@@ -102,7 +110,7 @@ const StudentUpdate = () => {
 
     const defaultStudentValues = {
         ...student,
-        dateOfBirth: '',
+        dateOfBirth: dayjs(student.dateOfBirth, 'YYYY-MM-DD'),
         academicDepartment: student.academicDepartment._id,
         admissionSemester: student.admissionSemester._id,
     };

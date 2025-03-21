@@ -4,6 +4,7 @@ import {
     TMeta,
     TQueryParam,
     TStudent,
+    TUser,
 } from '../../../types';
 import {
     Button,
@@ -12,13 +13,20 @@ import {
     TableColumnsType,
     TableProps,
     Input,
+    Modal,
 } from 'antd';
-import { useGetAllStudentsQuery } from '../../../redux/features/admin/userManagement/userManagement.api';
+import {
+    useChangeUserStatusMutation,
+    useGetAllStudentsQuery,
+} from '../../../redux/features/admin/userManagement/userManagement.api';
 import { Link } from 'react-router-dom';
 import Loader from '../../../components/loader/Loader';
 import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 
-type TTableData = Pick<TStudent, '_id' | 'fullName' | 'id' | 'profileImg'> & {
+type TTableData = Pick<
+    TStudent,
+    '_id' | 'fullName' | 'id' | 'profileImg' | 'user'
+> & {
     key: Key;
     academicDepartment: string;
 };
@@ -27,6 +35,39 @@ const StudentsData = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
+
+    const [modal, contextHolder] = Modal.useModal();
+
+    const confirm = (user: TUser) => {
+        modal
+            .confirm({
+                title: 'Confirm',
+                content: `Are you sure you want to ${
+                    user.status === 'in-progress' ? 'Block' : 'Unblock'
+                } ${user.id}?`,
+                okText: `${user.status === 'in-progress' ? 'Block' : 'Unblock'}`,
+                cancelText: 'Cancel',
+            })
+            .then(
+                (confirmed) => {
+                    if (confirmed) {
+                        if (user.status === 'in-progress') {
+                            changeUserStatus({
+                                status: 'blocked',
+                                id: user._id,
+                            });
+                        } else if (user.status === 'blocked') {
+                            changeUserStatus({
+                                status: 'in-progress',
+                                id: user._id,
+                            });
+                        }
+                    }
+                },
+                () => {},
+            );
+    };
+
     const [params, setParams] = useState<TQueryParam[]>([]);
     const {
         data: semesterData,
@@ -44,6 +85,8 @@ const StudentsData = () => {
         data: academicDepartmentData,
         isLoading: isAcademicDepartmentLoading,
     } = useGetAllAcademicDepartmentsQuery([]);
+
+    const [changeUserStatus] = useChangeUserStatusMutation();
 
     if (isStudentLoading || isAcademicDepartmentLoading) {
         return <Loader />;
@@ -93,7 +136,25 @@ const StudentsData = () => {
                     <Link to={`/admin/student-update/${record.key}`}>
                         <Button>Update</Button>
                     </Link>
-                    <Button>Block</Button>
+
+                    <Button onClick={() => confirm(record.user)}>
+                        {record.user.status === 'in-progress'
+                            ? 'Block'
+                            : 'Unblock'}
+                    </Button>
+                    {contextHolder}
+                    {/* <Button>
+                        {record.user.status === 'in-progress'
+                            ? 'Block'
+                            : 'Unblock'}
+                    </Button> */}
+                    {/* <h4>
+                        {`Are you sure you want to ${
+                            record.user.status === 'in-progress'
+                                ? 'Block'
+                                : 'Unblock'
+                        } ${record.fullName}`}
+                    </h4> */}
                 </div>
             ),
         },
@@ -106,12 +167,14 @@ const StudentsData = () => {
             id,
             profileImg,
             academicDepartment: { name: academicDepartmentName },
+            user,
         }: TStudent) => ({
             key: _id,
             fullName,
             id,
             profileImg,
             academicDepartment: academicDepartmentName,
+            user,
         }),
     );
 
