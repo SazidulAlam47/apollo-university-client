@@ -9,7 +9,7 @@ import {
 } from '../../../constants/userManagement.constant';
 import UTextArea from '../../../components/form/UTextArea';
 import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
-import { TAcademicDepartment, TResponse, TStudent } from '../../../types';
+import { TAcademicDepartment, TFaculty, TResponse } from '../../../types';
 import UDatePacker from '../../../components/form/UDatePacker';
 import { toast } from 'sonner';
 import UPictureInput from '../../../components/form/UPictureInput';
@@ -58,7 +58,7 @@ const CreateFaculty = () => {
         // console.log(Object.fromEntries(formData));
 
         const toastId = toast.loading('Creating...');
-        const res = (await addFaculty(formData)) as TResponse<TStudent>;
+        const res = (await addFaculty(formData)) as TResponse<TFaculty>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
         } else if (res.error) {
@@ -90,7 +90,7 @@ const CreateFaculty = () => {
                             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
                                 <UInput
                                     name="name.middleName"
-                                    label="Middle Name"
+                                    label="Middle Name (Optional)"
                                     placeholder="Middle Name"
                                 />
                             </Col>

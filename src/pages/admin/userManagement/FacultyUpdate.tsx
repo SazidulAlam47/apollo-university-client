@@ -112,7 +112,7 @@ const FacultyUpdate = () => {
                             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
                                 <UInput
                                     name="name.middleName"
-                                    label="Middle Name"
+                                    label="Middle Name (Optional)"
                                     placeholder="Middle Name"
                                 />
                             </Col>

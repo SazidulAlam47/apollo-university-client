@@ -1,38 +1,47 @@
-import { Button, Col, Divider, Row } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { TResponse, TAdmin } from '../../../types';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Button, Col, Divider, Row } from 'antd';
 import UFrom from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { adminSchema } from '../../../schemas/userManagement.schema';
 import USelect from '../../../components/form/USelect';
 import {
     bloodGroupOptions,
     genderOptions,
 } from '../../../constants/userManagement.constant';
-import UTextArea from '../../../components/form/UTextArea';
-import { TAdmin, TResponse } from '../../../types';
 import UDatePacker from '../../../components/form/UDatePacker';
-import { toast } from 'sonner';
+import UTextArea from '../../../components/form/UTextArea';
 import UPictureInput from '../../../components/form/UPictureInput';
-import UInputPassword from '../../../components/form/UInputPassword';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAddAdminMutation } from '../../../redux/features/admin/userManagement/adminManagement';
-import { adminSchema } from '../../../schemas/userManagement.schema';
+import Loader from '../../../components/loader/Loader';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import {
+    useGetSingleAdminQuery,
+    useUpdateAdminMutation,
+} from '../../../redux/features/admin/userManagement/adminManagement';
 
-const CreateAdmin = () => {
-    const [addAdmin] = useAddAdminMutation();
+dayjs.locale('zh-cn');
+
+const AdminUpdate = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const { data: adminData, isLoading: isAdminLoading } =
+        useGetSingleAdminQuery(id as string);
+
+    const [updateAdmin] = useUpdateAdminMutation();
+
+    if (isAdminLoading) {
+        return <Loader />;
+    }
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const adminData: {
-            admin: object;
-            password?: string;
-        } = {
+        const adminData = {
             admin: data,
         };
-
-        if (data?.password) {
-            adminData.password = data.password;
-        }
-
-        delete data?.password;
 
         const formData = new FormData();
         if (data?.image?.name) {
@@ -41,28 +50,41 @@ const CreateAdmin = () => {
         delete data?.image;
         formData.append('data', JSON.stringify(adminData));
 
-        // console.log(data);
+        // console.log(adminData);
+
         // console.log(Object.fromEntries(formData));
 
-        const toastId = toast.loading('Creating...');
-        const res = (await addAdmin(formData)) as TResponse<TAdmin>;
+        const toastId = toast.loading('Updating...');
+        const res = (await updateAdmin({
+            data: formData,
+            id: id as string,
+        })) as TResponse<TAdmin>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            navigate(`/admin/admins-data/${id}`);
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
     };
+
+    const admin = adminData.data as TAdmin;
+
+    const defaultAdminValues = {
+        ...admin,
+        dateOfBirth: dayjs(admin.dateOfBirth, 'YYYY-MM-DD'),
+    };
+
     return (
         <>
             <h2 style={{ textAlign: 'center', margin: '10px 0' }}>
-                Create New Admin Account
+                Update Admin Account
             </h2>
             <Row style={{ marginBottom: '2rem' }}>
                 <Col span={24}>
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(adminSchema)}
-                        reset
+                        defaultValues={defaultAdminValues}
                     >
                         <Divider>Personal Info</Divider>
                         <Row gutter={10}>
@@ -120,6 +142,7 @@ const CreateAdmin = () => {
                                     name="email"
                                     label="Email"
                                     placeholder="Email"
+                                    disabled
                                 />
                             </Col>
                             <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
@@ -156,20 +179,17 @@ const CreateAdmin = () => {
                                 />
                             </Col>
                         </Row>
-                        <Divider>Picture And Password (Optional)</Divider>
+                        <Divider>Picture</Divider>
                         <Row gutter={10}>
                             <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
                                 <UPictureInput />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
-                                <UInputPassword showLabel />
                             </Col>
                         </Row>
                         <Button
                             htmlType="submit"
                             style={{ marginTop: '0.8rem' }}
                         >
-                            Create
+                            Update
                         </Button>
                     </UFrom>
                 </Col>
@@ -178,4 +198,4 @@ const CreateAdmin = () => {
     );
 };
 
-export default CreateAdmin;
+export default AdminUpdate;

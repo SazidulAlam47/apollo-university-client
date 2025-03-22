@@ -5,6 +5,9 @@ import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
 import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
 import AdminDashboard from '../pages/admin/AdminDashboard';
+import AdminDetails from '../pages/admin/userManagement/AdminDetails';
+import AdminsData from '../pages/admin/userManagement/AdminsData';
+import AdminUpdate from '../pages/admin/userManagement/AdminUpdate';
 import CreateAdmin from '../pages/admin/userManagement/CreateAdmin';
 import CreateFaculty from '../pages/admin/userManagement/CreateFaculty';
 import CreateStudent from '../pages/admin/userManagement/CreateStudent';
@@ -100,6 +103,19 @@ const adminPaths: TPath[] = [
                 name: 'Create Admin',
                 path: 'create-admin',
                 element: <CreateAdmin />,
+            },
+            {
+                name: 'Admins',
+                path: 'admins-data',
+                element: <AdminsData />,
+            },
+            {
+                path: 'admins-data/:id',
+                element: <AdminDetails />,
+            },
+            {
+                path: 'admin-update/:id',
+                element: <AdminUpdate />,
             },
         ],
     },

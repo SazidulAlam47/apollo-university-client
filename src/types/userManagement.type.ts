@@ -88,3 +88,21 @@ export type TFaculty = {
     profileImg: string;
     isDeleted: boolean;
 };
+
+export type TAdmin = {
+    _id: string;
+    id: string;
+    user: TUser;
+    designation: string;
+    name: TName;
+    gender: TGender;
+    dateOfBirth: string;
+    email: string;
+    contactNumber: string;
+    bloodGroup: TBloodGroup;
+    presentAddress: string;
+    permanentAddress: string;
+    profileImg: string;
+    isDeleted: boolean;
+    fullName: string;
+};
