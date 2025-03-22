@@ -7,9 +7,16 @@ type UInputProps = {
     placeholder?: string;
     name: string;
     label?: string;
+    disabled?: boolean;
 };
 
-const UInput = ({ type = 'text', placeholder, name, label }: UInputProps) => {
+const UInput = ({
+    type = 'text',
+    placeholder,
+    name,
+    label,
+    disabled = false,
+}: UInputProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
@@ -22,6 +29,7 @@ const UInput = ({ type = 'text', placeholder, name, label }: UInputProps) => {
                             id={name}
                             status={error ? 'error' : ''}
                             placeholder={placeholder ? placeholder : ''}
+                            disabled={disabled}
                         />
                         <UFromError error={error} />
                     </Form.Item>

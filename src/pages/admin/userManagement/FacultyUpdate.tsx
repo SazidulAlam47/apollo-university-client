@@ -1,25 +1,17 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useGetAllAcademicDepartmentsQuery } from '../../../redux/features/admin/academicManagement/academicManagement.api';
 import {
-    useGetAllAcademicDepartmentsQuery,
-    useGetAllAcademicSemestersQuery,
-} from '../../../redux/features/admin/academicManagement/academicManagement.api';
-import {
-    useGetSingleStudentQuery,
-    useUpdateStudentMutation,
-} from '../../../redux/features/admin/userManagement/studentManagement.api';
-import {
-    TAcademicDepartment,
-    TAcademicSemester,
-    TResponse,
-    TStudent,
-} from '../../../types';
+    useGetSingleFacultyQuery,
+    useUpdateFacultyMutation,
+} from '../../../redux/features/admin/userManagement/facultyManagement.api';
+import { TAcademicDepartment, TResponse, TFaculty } from '../../../types';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button, Col, Divider, Row } from 'antd';
 import UFrom from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { studentSchema } from '../../../schemas/userManagement.schema';
+import { facultySchema } from '../../../schemas/userManagement.schema';
 import USelect from '../../../components/form/USelect';
 import {
     bloodGroupOptions,
@@ -34,28 +26,21 @@ import 'dayjs/locale/zh-cn';
 
 dayjs.locale('zh-cn');
 
-const StudentUpdate = () => {
+const FacultyUpdate = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const { data: studentData, isLoading: isStudentLoading } =
-        useGetSingleStudentQuery(id as string);
+    const { data: facultyData, isLoading: isFacultyLoading } =
+        useGetSingleFacultyQuery(id as string);
 
     const {
         data: academicDepartmentData,
         isLoading: isAcademicDepartmentLoading,
     } = useGetAllAcademicDepartmentsQuery([]);
 
-    const { data: academicSemesterData, isLoading: isAcademicSemesterLoading } =
-        useGetAllAcademicSemestersQuery([]);
+    const [updateFaculty] = useUpdateFacultyMutation();
 
-    const [updateStudent] = useUpdateStudentMutation();
-
-    if (
-        isStudentLoading ||
-        isAcademicDepartmentLoading ||
-        isAcademicSemesterLoading
-    ) {
+    if (isFacultyLoading || isAcademicDepartmentLoading) {
         return <Loader />;
     }
 
@@ -66,16 +51,9 @@ const StudentUpdate = () => {
         }),
     );
 
-    const academicSemesterOptions = academicSemesterData?.data?.map(
-        ({ _id, name, year }: TAcademicSemester) => ({
-            value: _id,
-            label: `${name} - ${year}`,
-        }),
-    );
-
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const studentData = {
-            student: data,
+        const facultyData = {
+            faculty: data,
         };
 
         const formData = new FormData();
@@ -83,45 +61,44 @@ const StudentUpdate = () => {
             formData.append('file', data.image);
         }
         delete data?.image;
-        formData.append('data', JSON.stringify(studentData));
+        formData.append('data', JSON.stringify(facultyData));
 
-        // console.log(studentData);
+        // console.log(facultyData);
 
         // console.log(Object.fromEntries(formData));
 
         const toastId = toast.loading('Updating...');
-        const res = (await updateStudent({
+        const res = (await updateFaculty({
             data: formData,
             id: id as string,
-        })) as TResponse<TStudent>;
+        })) as TResponse<TFaculty>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
-            navigate(`/admin/students-data/${id}`);
+            navigate(`/admin/faculties-data/${id}`);
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
     };
 
-    const student = studentData.data as TStudent;
+    const faculty = facultyData.data as TFaculty;
 
-    const defaultStudentValues = {
-        ...student,
-        dateOfBirth: dayjs(student.dateOfBirth, 'YYYY-MM-DD'),
-        academicDepartment: student.academicDepartment._id,
-        admissionSemester: student.admissionSemester._id,
+    const defaultFacultyValues = {
+        ...faculty,
+        dateOfBirth: dayjs(faculty.dateOfBirth, 'YYYY-MM-DD'),
+        academicDepartment: faculty.academicDepartment._id,
     };
 
     return (
         <>
             <h2 style={{ textAlign: 'center', margin: '10px 0' }}>
-                Update Student Account
+                Update Faculty Account
             </h2>
             <Row style={{ marginBottom: '2rem' }}>
                 <Col span={24}>
                     <UFrom
                         onSubmit={handleSubmit}
-                        resolver={zodResolver(studentSchema)}
-                        defaultValues={defaultStudentValues}
+                        resolver={zodResolver(facultySchema)}
+                        defaultValues={defaultFacultyValues}
                     >
                         <Divider>Personal Info</Divider>
                         <Row gutter={10}>
@@ -174,7 +151,7 @@ const StudentUpdate = () => {
                         </Row>
                         <Divider>Contact Info</Divider>
                         <Row gutter={10}>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                            <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
                                 <UInput
                                     name="email"
                                     label="Email"
@@ -182,18 +159,11 @@ const StudentUpdate = () => {
                                     disabled
                                 />
                             </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                            <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
                                 <UInput
                                     name="contactNumber"
                                     label="Contact Number"
                                     placeholder="Contact Number"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="emergencyContact"
-                                    label="Emergency Contact Number"
-                                    placeholder="Emergency Contact Number"
                                 />
                             </Col>
                         </Row>
@@ -213,87 +183,6 @@ const StudentUpdate = () => {
                                 />
                             </Col>
                         </Row>
-                        <Divider>Guardian Info</Divider>
-                        <Row gutter={10}>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="guardian.fatherName"
-                                    label="Father Name"
-                                    placeholder="Father Name"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="guardian.fatherOccupation"
-                                    label="Father Occupation"
-                                    placeholder="Father Occupation"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="guardian.fatherContact"
-                                    label="Father Contact Number"
-                                    placeholder="Father Contact Number"
-                                />
-                            </Col>
-                        </Row>
-                        <Row gutter={10}>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="guardian.motherName"
-                                    label="Mother Name"
-                                    placeholder="Mother Name"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="guardian.motherOccupation"
-                                    label="Mother Occupation"
-                                    placeholder="Mother Occupation"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="guardian.motherContact"
-                                    label="Mother Contact Number"
-                                    placeholder="Mother Contact Number"
-                                />
-                            </Col>
-                        </Row>
-                        <Divider>Local Guardian Info</Divider>
-                        <Row gutter={10}>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="localGuardian.name"
-                                    label="Name"
-                                    placeholder="Name"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="localGuardian.occupation"
-                                    label="Occupation"
-                                    placeholder="Occupation"
-                                />
-                            </Col>
-                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                                <UInput
-                                    name="localGuardian.contactNo"
-                                    label="Contact Number"
-                                    placeholder="Contact Number"
-                                />
-                            </Col>
-                        </Row>
-                        <Row gutter={10}>
-                            <Col span={24}>
-                                <UTextArea
-                                    name="localGuardian.address"
-                                    label="Address"
-                                    placeholder="Address"
-                                    row={2}
-                                />
-                            </Col>
-                        </Row>
                         <Divider>Academic Info</Divider>
                         <Row gutter={10}>
                             <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
@@ -306,12 +195,10 @@ const StudentUpdate = () => {
                                 />
                             </Col>
                             <Col span={24} md={{ span: 12 }} lg={{ span: 12 }}>
-                                <USelect
-                                    name="admissionSemester"
-                                    label="Admission Semester"
-                                    placeholder="Admission Semester"
-                                    options={academicSemesterOptions}
-                                    disabled={isAcademicSemesterLoading}
+                                <UInput
+                                    name="designation"
+                                    label="Designation"
+                                    placeholder="Designation"
                                 />
                             </Col>
                         </Row>
@@ -334,4 +221,4 @@ const StudentUpdate = () => {
     );
 };
 
-export default StudentUpdate;
+export default FacultyUpdate;
