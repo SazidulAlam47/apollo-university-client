@@ -14,7 +14,7 @@ const userManagementApi = baseApi.injectEndpoints({
                 method: 'PATCH',
                 body: { status },
             }),
-            invalidatesTags: ['user', 'student', 'faculty'],
+            invalidatesTags: ['user', 'student', 'faculty', 'admin'],
         }),
     }),
 });

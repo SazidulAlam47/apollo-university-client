@@ -84,7 +84,7 @@ const adminPaths: TPath[] = [
                 element: <CreateFaculty />,
             },
             {
-                name: 'Faculty',
+                name: 'Faculties',
                 path: 'faculties-data',
                 element: <FacultiesData />,
             },
