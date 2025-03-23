@@ -5,6 +5,10 @@ import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
 import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
 import AdminDashboard from '../pages/admin/AdminDashboard';
+import AddCourse from '../pages/admin/courseManagement/AddCourse';
+import AddOfferedCourse from '../pages/admin/courseManagement/AddOfferedCourse';
+import RegisteredSemesters from '../pages/admin/courseManagement/RegisteredSemesters';
+import SemesterRegistration from '../pages/admin/courseManagement/SemesterRegistration';
 import AdminDetails from '../pages/admin/userManagement/AdminDetails';
 import AdminsData from '../pages/admin/userManagement/AdminsData';
 import AdminUpdate from '../pages/admin/userManagement/AdminUpdate';
@@ -116,6 +120,31 @@ const adminPaths: TPath[] = [
             {
                 path: 'admin-update/:id',
                 element: <AdminUpdate />,
+            },
+        ],
+    },
+    {
+        name: 'Course Management',
+        children: [
+            {
+                name: 'Semester Registration',
+                path: 'semester-registration',
+                element: <SemesterRegistration />,
+            },
+            {
+                name: 'Registered Semesters',
+                path: 'registered-semesters',
+                element: <RegisteredSemesters />,
+            },
+            {
+                name: 'Add Course',
+                path: 'add-course',
+                element: <AddCourse />,
+            },
+            {
+                name: 'Add Offered Course',
+                path: 'add-offered-course',
+                element: <AddOfferedCourse />,
             },
         ],
     },
