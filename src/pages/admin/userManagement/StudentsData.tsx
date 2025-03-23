@@ -34,7 +34,7 @@ const StudentsData = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
-
+    const [params, setParams] = useState<TQueryParam[]>([]);
     const [modal, contextHolder] = Modal.useModal();
 
     const confirm = async (user: TUser) => {
@@ -62,7 +62,6 @@ const StudentsData = () => {
         });
     };
 
-    const [params, setParams] = useState<TQueryParam[]>([]);
     const {
         data: semesterData,
         isFetching,
@@ -137,18 +136,6 @@ const StudentsData = () => {
                             : 'Unblock'}
                     </Button>
                     {contextHolder}
-                    {/* <Button>
-                        {record.user.status === 'in-progress'
-                            ? 'Block'
-                            : 'Unblock'}
-                    </Button> */}
-                    {/* <h4>
-                        {`Are you sure you want to ${
-                            record.user.status === 'in-progress'
-                                ? 'Block'
-                                : 'Unblock'
-                        } ${record.fullName}`}
-                    </h4> */}
                 </div>
             ),
         },

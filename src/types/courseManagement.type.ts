@@ -1,5 +1,8 @@
+import { TAcademicSemester } from './academicManagement.type';
+
 export type TSemesterRegistration = {
-    academicSemester: string;
+    _id: string;
+    academicSemester: TAcademicSemester;
     startDate: string;
     endDate: string;
     status: 'Upcoming' | 'Ongoing' | 'Ended';

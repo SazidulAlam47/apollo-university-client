@@ -49,10 +49,21 @@ const academicManagementApi = baseApi.injectEndpoints({
             invalidatesTags: ['academicFaculty'],
         }),
         getAllAcademicFaculties: build.query({
-            query: () => ({
-                url: '/academic-faculty',
-                method: 'GET',
-            }),
+            query: (args: TQueryParam[]) => {
+                const params = new URLSearchParams();
+                if (args?.length) {
+                    args.forEach((item) => {
+                        if (item.value) {
+                            params.append(item.name, item.value as string);
+                        }
+                    });
+                }
+                return {
+                    url: '/academic-faculty',
+                    method: 'GET',
+                    params,
+                };
+            },
             providesTags: ['academicFaculty'],
         }),
         addAcademicDepartment: build.mutation({

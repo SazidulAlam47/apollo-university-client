@@ -13,7 +13,7 @@ importers:
         version: 5.6.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@ant-design/v5-patch-for-react-19':
         specifier: ^1.0.3
-        version: 1.0.3(antd@5.24.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.0.3(antd@5.24.4(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@hookform/resolvers':
         specifier: ^4.1.3
         version: 4.1.3(react-hook-form@7.54.2(react@19.0.0))
@@ -22,13 +22,16 @@ importers:
         version: 2.6.1(react-redux@9.2.0(@types/react@19.0.12)(react@19.0.0)(redux@5.0.1))(react@19.0.0)
       antd:
         specifier: ^5.24.3
-        version: 5.24.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 5.24.4(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
+      moment:
+        specifier: ^2.30.1
+        version: 2.30.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1091,6 +1094,9 @@ packages:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
@@ -1703,9 +1709,9 @@ snapshots:
       resize-observer-polyfill: 1.5.1
       throttle-debounce: 5.0.2
 
-  '@ant-design/v5-patch-for-react-19@1.0.3(antd@5.24.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@ant-design/v5-patch-for-react-19@1.0.3(antd@5.24.4(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      antd: 5.24.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      antd: 5.24.4(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
@@ -2275,7 +2281,7 @@ snapshots:
     dependencies:
       color-convert: 2.0.1
 
-  antd@5.24.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  antd@5.24.4(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@ant-design/colors': 7.2.0
       '@ant-design/cssinjs': 1.23.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -2307,7 +2313,7 @@ snapshots:
       rc-motion: 2.9.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rc-notification: 5.6.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rc-pagination: 5.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      rc-picker: 4.11.3(dayjs@1.11.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      rc-picker: 4.11.3(dayjs@1.11.13)(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rc-progress: 4.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rc-rate: 2.13.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rc-resize-observer: 1.4.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -2664,6 +2670,8 @@ snapshots:
     dependencies:
       brace-expansion: 2.0.1
 
+  moment@2.30.1: {}
+
   ms@2.1.3: {}
 
   nanoid@3.3.11: {}
@@ -2869,7 +2877,7 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  rc-picker@4.11.3(dayjs@1.11.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  rc-picker@4.11.3(dayjs@1.11.13)(moment@2.30.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@babel/runtime': 7.26.10
       '@rc-component/trigger': 2.2.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -2881,6 +2889,7 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
     optionalDependencies:
       dayjs: 1.11.13
+      moment: 2.30.1
 
   rc-progress@4.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:

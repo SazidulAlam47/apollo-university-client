@@ -1,7 +1,8 @@
-import { Table, TableColumnsType, TableProps } from 'antd';
+import { Pagination, Table, TableColumnsType, TableProps } from 'antd';
 import {
     TAcademicDepartment,
     TAcademicFaculty,
+    TMeta,
     TQueryParam,
 } from '../../../types';
 import { Key, useState } from 'react';
@@ -17,18 +18,26 @@ type TTableData = Pick<TAcademicDepartment, 'name' | 'academicFaculty'> & {
 
 const AcademicDepartment = () => {
     const [params, setParams] = useState<TQueryParam[]>([]);
+    const [limit, setLimit] = useState(5);
+    const [page, setPage] = useState(1);
     const {
         data: academicDepartmentData,
         isLoading: isAcademicDepartmentLoading,
         isFetching,
-    } = useGetAllAcademicDepartmentsQuery(params);
+    } = useGetAllAcademicDepartmentsQuery([
+        { name: 'page', value: page },
+        { name: 'limit', value: limit },
+        ...params,
+    ]);
 
     const { data: academicFacultyData, isLoading: isAcademicFacultyLoading } =
-        useGetAllAcademicFacultiesQuery(undefined);
+        useGetAllAcademicFacultiesQuery([]);
 
     if (isAcademicDepartmentLoading || isAcademicFacultyLoading) {
         return <Loader />;
     }
+
+    const meta = academicDepartmentData.meta as TMeta;
 
     const filterAcademicFaculty = academicFacultyData!.data?.map(
         ({ _id, name }: TAcademicFaculty) => ({
@@ -41,10 +50,12 @@ const AcademicDepartment = () => {
         {
             title: 'Name',
             dataIndex: 'name',
+            width: '50%',
         },
         {
             title: 'Academic Faculty',
             dataIndex: 'academicFaculty',
+            width: '50%',
             filters: filterAcademicFaculty,
         },
     ];
@@ -88,6 +99,17 @@ const AcademicDepartment = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: 'sorter-icon' }}
                 pagination={false}
+            />
+            <Pagination
+                align="end"
+                total={meta.totalData}
+                pageSize={limit}
+                current={page}
+                onChange={setPage}
+                style={{ margin: '10px 0' }}
+                showSizeChanger
+                pageSizeOptions={[3, 5, 10, 15, 20]}
+                onShowSizeChange={(_page, limit) => setLimit(limit)}
             />
         </>
     );
