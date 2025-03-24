@@ -13,6 +13,8 @@ const months = [
     'December',
 ];
 
+export const Days = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
 export const monthsOptions = months.map((month) => ({
     value: month,
     label: month,

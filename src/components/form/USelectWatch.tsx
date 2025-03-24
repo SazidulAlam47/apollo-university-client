@@ -1,11 +1,13 @@
 import { Form, Select } from 'antd';
 import { Controller, useFormContext } from 'react-hook-form';
 import UFromError from './UFromError';
-import { RefObject, useImperativeHandle } from 'react';
-
-export type TUSelectFncRef = {
-    resetField: () => void;
-};
+import {
+    Dispatch,
+    RefObject,
+    SetStateAction,
+    useEffect,
+    useImperativeHandle,
+} from 'react';
 
 type TOption = {
     value: string;
@@ -20,19 +22,25 @@ type USelectProps = {
     options: TOption[] | undefined;
     disabled?: boolean;
     mode?: 'multiple' | 'tags' | undefined;
+    setSelectValue: Dispatch<SetStateAction<string>>;
     fncRef?: RefObject<unknown>;
 };
 
-const USelect = ({
+const USelectWatch = ({
     placeholder,
     name,
     label,
     options,
+    setSelectValue,
     disabled = false,
     mode = undefined,
     fncRef = undefined,
 }: USelectProps) => {
-    const { setValue } = useFormContext();
+    const { watch, setValue } = useFormContext();
+    const fromValue = watch(name);
+    useEffect(() => {
+        setSelectValue(fromValue);
+    }, [fromValue, setSelectValue]);
 
     const resetField = () => {
         setValue(name, undefined);
@@ -67,4 +75,4 @@ const USelect = ({
     );
 };
 
-export default USelect;
+export default USelectWatch;

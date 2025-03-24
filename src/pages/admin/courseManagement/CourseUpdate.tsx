@@ -125,7 +125,7 @@ const CourseUpdate = () => {
                             disabled={isFetching}
                             options={preRequisiteCoursesOptions}
                         />
-                        <Button htmlType="submit">Create</Button>
+                        <Button htmlType="submit">Update</Button>
                     </UFrom>
                 </Col>
             </Flex>

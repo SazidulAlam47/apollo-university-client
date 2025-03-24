@@ -21,7 +21,7 @@ const CreateAcademicDepartment = () => {
     const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
     const navigate = useNavigate();
     const { data: academicFacultiesData, isLoading } =
-        useGetAllAcademicFacultiesQuery(undefined);
+        useGetAllAcademicFacultiesQuery([]);
 
     const academicFacultyOptions = academicFacultiesData?.data.map(
         (item: TAcademicFaculty) => ({
