@@ -1,4 +1,5 @@
 import { TAcademicSemester } from './academicManagement.type';
+import { TFaculty } from './userManagement.type';
 
 export type TSemesterRegistration = {
     _id: string;
@@ -23,4 +24,10 @@ export type TCourse = {
     credits: number;
     preRequisiteCourses: TPreRequisiteCourse[];
     isDeleted: boolean;
+};
+
+export type TCourseFaculties = {
+    _id: string;
+    course: TCourse;
+    faculties: TFaculty[];
 };

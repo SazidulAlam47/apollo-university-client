@@ -33,3 +33,8 @@ export const courseSchema = z.object({
         .min(1, { message: 'Enter a valid number for Credits' }),
     preRequisiteCourses: z.string().array().optional(),
 });
+
+export const assignCourseFacultiesSchema = z.object({
+    course: z.string({ required_error: 'Please select a Course' }),
+    faculties: z.string().array(),
+});

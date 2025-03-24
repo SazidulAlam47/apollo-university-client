@@ -5,6 +5,7 @@ import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
 import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
 import AdminDashboard from '../pages/admin/AdminDashboard';
+import AssignCourseFaculties from '../pages/admin/courseManagement/AssignCourseFaculties';
 import CoursesData from '../pages/admin/courseManagement/CoursesData';
 import CourseUpdate from '../pages/admin/courseManagement/CourseUpdate';
 import CreateCourse from '../pages/admin/courseManagement/CreateCourse';
@@ -151,6 +152,11 @@ const adminPaths: TPath[] = [
             {
                 path: 'course-update/:id',
                 element: <CourseUpdate />,
+            },
+            {
+                name: 'Add Course Faculties',
+                path: 'assign-course-faculties',
+                element: <AssignCourseFaculties />,
             },
             {
                 name: 'Offer Course',
