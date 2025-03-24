@@ -9,3 +9,18 @@ export type TSemesterRegistration = {
     minCredit: number;
     maxCredit: number;
 };
+
+export type TPreRequisiteCourse = {
+    course: TCourse;
+    isDeleted: boolean;
+};
+
+export type TCourse = {
+    _id: string;
+    title: string;
+    prefix: string;
+    code: number;
+    credits: number;
+    preRequisiteCourses: TPreRequisiteCourse[];
+    isDeleted: boolean;
+};

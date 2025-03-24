@@ -14,6 +14,7 @@ type USelectProps = {
     label?: string;
     options: TOption[] | undefined;
     disabled?: boolean;
+    mode?: 'multiple' | 'tags' | undefined;
 };
 
 const USelect = ({
@@ -22,6 +23,7 @@ const USelect = ({
     label,
     options,
     disabled = false,
+    mode,
 }: USelectProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
@@ -32,6 +34,7 @@ const USelect = ({
                         <Form.Item label={label} style={{ margin: 0 }}>
                             <Select
                                 {...field}
+                                mode={mode}
                                 status={error ? 'error' : ''}
                                 style={{ width: '100%' }}
                                 placeholder={placeholder}

@@ -5,8 +5,8 @@ import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAc
 import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
 import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
 import AdminDashboard from '../pages/admin/AdminDashboard';
-import AddCourse from '../pages/admin/courseManagement/AddCourse';
-import AddOfferedCourse from '../pages/admin/courseManagement/AddOfferedCourse';
+import AddCourse from '../pages/admin/courseManagement/CreateCourse';
+import AddOfferedCourse from '../pages/admin/courseManagement/CreateOfferedCourse';
 import RegisteredSemesters from '../pages/admin/courseManagement/RegisteredSemesters';
 import SemesterRegistration from '../pages/admin/courseManagement/SemesterRegistration';
 import AdminDetails from '../pages/admin/userManagement/AdminDetails';
@@ -137,12 +137,12 @@ const adminPaths: TPath[] = [
                 element: <RegisteredSemesters />,
             },
             {
-                name: 'Add Course',
+                name: 'Create Course',
                 path: 'add-course',
                 element: <AddCourse />,
             },
             {
-                name: 'Add Offered Course',
+                name: 'Offer Course',
                 path: 'add-offered-course',
                 element: <AddOfferedCourse />,
             },

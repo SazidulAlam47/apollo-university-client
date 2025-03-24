@@ -2,7 +2,7 @@ import { Key } from 'react';
 import { TQueryParam } from '../../../../types';
 import { baseApi } from '../../../api/baseApi';
 
-const courseManagementApi = baseApi.injectEndpoints({
+const semesterRegistrationApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         addSemesterRegistration: build.mutation({
             query: (data) => ({
@@ -51,4 +51,4 @@ export const {
     useAddSemesterRegistrationMutation,
     useGetAllSemesterRegistrationQuery,
     useChangeSemesterStatusMutation,
-} = courseManagementApi;
+} = semesterRegistrationApi;

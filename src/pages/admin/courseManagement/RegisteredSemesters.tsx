@@ -4,7 +4,7 @@ import { TMeta, TSemesterRegistration } from '../../../types';
 import {
     useChangeSemesterStatusMutation,
     useGetAllSemesterRegistrationQuery,
-} from '../../../redux/features/admin/courseManagement/courseManagement.api';
+} from '../../../redux/features/admin/courseManagement/semesterRegistration.api';
 import Loader from '../../../components/loader/Loader';
 import moment from 'moment';
 import { ExclamationCircleFilled } from '@ant-design/icons';
