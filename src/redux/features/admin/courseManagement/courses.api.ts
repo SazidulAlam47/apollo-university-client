@@ -29,7 +29,27 @@ const coursesApi = baseApi.injectEndpoints({
             },
             providesTags: ['course'],
         }),
+        getSingleCourse: build.query({
+            query: (id: string) => ({
+                url: `/courses/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ['course'],
+        }),
+        updateCourse: build.mutation({
+            query: ({ data, id }) => ({
+                url: `/courses/${id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+            invalidatesTags: ['course'],
+        }),
     }),
 });
 
-export const { useAddCourseMutation, useGetAllCoursesQuery } = coursesApi;
+export const {
+    useAddCourseMutation,
+    useGetAllCoursesQuery,
+    useGetSingleCourseQuery,
+    useUpdateCourseMutation,
+} = coursesApi;
