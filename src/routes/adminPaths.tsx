@@ -10,6 +10,8 @@ import CoursesData from '../pages/admin/courseManagement/CoursesData';
 import CourseUpdate from '../pages/admin/courseManagement/CourseUpdate';
 import CreateCourse from '../pages/admin/courseManagement/CreateCourse';
 import CreateOfferedCourse from '../pages/admin/courseManagement/CreateOfferedCourse';
+import OfferedCourseData from '../pages/admin/courseManagement/OfferedCourseData';
+import OfferedCourseUpdate from '../pages/admin/courseManagement/OfferedCourseUpdate';
 import RegisteredSemesters from '../pages/admin/courseManagement/RegisteredSemesters';
 import SemesterRegistration from '../pages/admin/courseManagement/SemesterRegistration';
 import AdminDetails from '../pages/admin/userManagement/AdminDetails';
@@ -162,6 +164,15 @@ const adminPaths: TPath[] = [
                 name: 'Offer Course',
                 path: 'create-offered-course',
                 element: <CreateOfferedCourse />,
+            },
+            {
+                name: 'Offered Courses',
+                path: 'offered-courses',
+                element: <OfferedCourseData />,
+            },
+            {
+                path: 'offered-course-update/:id',
+                element: <OfferedCourseUpdate />,
             },
         ],
     },

@@ -39,7 +39,7 @@ export const assignCourseFacultiesSchema = z.object({
     faculties: z.string().array(),
 });
 
-export const offeredCourseSchema = z.object({
+export const createOfferedCourseSchema = z.object({
     semesterRegistration: z.string({
         required_error: 'Please select a Semester',
     }),
@@ -65,6 +65,21 @@ export const offeredCourseSchema = z.object({
             invalid_type_error: 'Section must be a number',
         })
         .min(1, { message: 'Please Enter a valid number of Section' }),
+    days: z.string().array(),
+    time: z.any().refine((val) => val !== undefined, {
+        message: 'Please Select Class Time',
+    }),
+});
+
+export const updateOfferedCourseSchema = z.object({
+    faculty: z.string({
+        required_error: 'Please select a Faculty',
+    }),
+    maxCapacity: z.coerce
+        .number({
+            invalid_type_error: 'Maximum Capacity must be a number',
+        })
+        .min(1, { message: 'Please Enter a valid number of Maximum Capacity' }),
     days: z.string().array(),
     time: z.any().refine((val) => val !== undefined, {
         message: 'Please Select Class Time',

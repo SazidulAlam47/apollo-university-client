@@ -27,7 +27,7 @@ import {
     useGetAllCoursesQuery,
 } from '../../../redux/features/admin/courseManagement/courses.api';
 import UTimePicker from '../../../components/form/UTimePicker';
-import { offeredCourseSchema } from '../../../schemas/courseManagement.schema';
+import { createOfferedCourseSchema } from '../../../schemas/courseManagement.schema';
 import { daysOptions } from '../../../constants/global';
 
 const CreateOfferedCourse = () => {
@@ -146,7 +146,7 @@ const CreateOfferedCourse = () => {
                 <Col span={10} style={{ marginBottom: 20 }}>
                     <UFrom
                         onSubmit={handleSubmit}
-                        resolver={zodResolver(offeredCourseSchema)}
+                        resolver={zodResolver(createOfferedCourseSchema)}
                         reset
                     >
                         <USelect
