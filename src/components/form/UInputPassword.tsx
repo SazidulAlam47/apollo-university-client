@@ -5,25 +5,35 @@ import UFromError from './UFromError';
 
 type TInputPasswordProps = {
     showLabel?: boolean;
+    name?: string;
+    placeholder?: string;
+    label?: string;
+    hideIcon?: boolean;
 };
 
-const UInputPassword = ({ showLabel = false }: TInputPasswordProps) => {
+const UInputPassword = ({
+    showLabel = false,
+    name = 'password',
+    placeholder = 'Password',
+    label = 'Password',
+    hideIcon = false,
+}: TInputPasswordProps) => {
     return (
         <div style={{ margin: '12px 0' }}>
             <Controller
-                name="password"
+                name={name}
                 render={({ field, fieldState: { error } }) => (
                     <Form.Item
                         style={{ margin: 0 }}
-                        label={showLabel ? 'Password' : ''}
+                        label={showLabel ? label : ''}
                     >
                         <Input.Password
                             {...field}
                             type="password"
-                            id="password"
-                            prefix={<LockOutlined />}
+                            id={name}
+                            prefix={hideIcon ? undefined : <LockOutlined />}
                             status={error ? 'error' : ''}
-                            placeholder="Password"
+                            placeholder={placeholder}
                         />
                         <UFromError error={error} />
                     </Form.Item>

@@ -1,12 +1,13 @@
 import { Layout, Menu } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo-w.png';
 import sidebarItemsGenerator from '../../utils/sidebarItemsGenerator';
 import adminPaths from '../../routes/adminPaths';
 import facultyPaths from '../../routes/facultyPaths';
 import studentPaths from '../../routes/studentPaths';
 import { useAppSelector } from '../../redux/hooks';
-import { currentUser } from '../../redux/features/auth/auth.slice';
+import { currentToken, IUser } from '../../redux/features/auth/auth.slice';
+import verifyToken from '../../utils/verifyToken';
 
 const { Sider } = Layout;
 
@@ -17,7 +18,13 @@ const UserRoles = {
 };
 
 const Sidebar = () => {
-    const user = useAppSelector(currentUser);
+    const navigate = useNavigate();
+    const token = useAppSelector(currentToken);
+    if (!token) {
+        navigate('/login');
+        return;
+    }
+    const user = verifyToken(token) as IUser;
 
     let sidebarItems;
 

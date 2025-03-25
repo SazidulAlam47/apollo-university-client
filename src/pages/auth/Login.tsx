@@ -1,18 +1,18 @@
-import { Button, Col, Flex } from 'antd';
-import { useLoginMutation } from '../redux/features/auth/auth.api';
-import verifyToken from '../utils/verifyToken';
-import { useAppDispatch } from '../redux/hooks';
-import { IUser, setUser } from '../redux/features/auth/auth.slice';
-import logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
-import UFrom from '../components/form/UFrom';
+import { useAppDispatch } from '../../redux/hooks';
+import { useLoginMutation } from '../../redux/features/auth/auth.api';
 import { FieldValues } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import UInputId from '../components/form/UInputId';
-import UInputPassword from '../components/form/UInputPassword';
-import { loginSchema } from '../schemas/login.schema';
 import { toast } from 'sonner';
-import { TLogin, TResponse } from '../types';
+import { TLogin, TResponse } from '../../types';
+import verifyToken from '../../utils/verifyToken';
+import { IUser, setUser } from '../../redux/features/auth/auth.slice';
+import { Button, Col, Flex } from 'antd';
+import UFrom from '../../components/form/UFrom';
+import { loginSchema } from '../../schemas/auth.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import UInputId from '../../components/form/UInputId';
+import UInputPassword from '../../components/form/UInputPassword';
+import logo from '../../assets/images/logo.png';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -27,7 +27,11 @@ const Login = () => {
             const token = res.data.data.accessToken;
             const user = verifyToken(token) as IUser;
             dispatch(setUser({ user, token }));
-            navigate(`/${user.role}/dashboard`);
+            if (res.data.data.needsPasswordChange) {
+                navigate('/change-password');
+            } else {
+                navigate(`/${user.role}/dashboard`);
+            }
             toast.success(res.data.message, { id: toastId });
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });

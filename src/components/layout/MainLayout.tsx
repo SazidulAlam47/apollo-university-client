@@ -1,5 +1,5 @@
 import { Button, Layout } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAppDispatch } from '../../redux/hooks';
 import { logout } from '../../redux/features/auth/auth.slice';
@@ -27,10 +27,16 @@ const MainLayout = () => {
                     style={{
                         color: 'white',
                         display: 'flex',
+                        gap: '10px',
                         justifyContent: 'flex-end',
                         alignItems: 'center',
                     }}
                 >
+                    <Link to="/change-password">
+                        <Button type="link" style={{ color: 'white' }}>
+                            Change Password
+                        </Button>
+                    </Link>
                     <Button onClick={handleLogout}>Logout</Button>
                 </Header>
                 <Content style={{ margin: '24px 16px 0' }}>
