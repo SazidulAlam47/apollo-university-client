@@ -1,5 +1,5 @@
 import { Button, Col, Flex } from 'antd';
-import UFrom from '../../../components/form/UFrom';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import UInput from '../../../components/form/UInput';
@@ -11,8 +11,10 @@ import {
 } from '../../../redux/features/admin/courseManagement/courses.api';
 import USelect from '../../../components/form/USelect';
 import { courseSchema } from '../../../schemas/courseManagement.schema';
+import { useRef } from 'react';
 
 const CreateCourse = () => {
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
     const { data: coursesData, isFetching } = useGetAllCoursesQuery([]);
     const [addCourse] = useAddCourseMutation();
 
@@ -38,6 +40,7 @@ const CreateCourse = () => {
 
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
@@ -52,7 +55,7 @@ const CreateCourse = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(courseSchema)}
-                        reset
+                        fncRef={fromResetRef}
                     >
                         <UInput
                             name="title"

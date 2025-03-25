@@ -1,6 +1,6 @@
 import { Button, Col, Divider, Row } from 'antd';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import UFrom from '../../../components/form/UFrom';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
 import USelect from '../../../components/form/USelect';
 import {
@@ -17,8 +17,10 @@ import UInputPassword from '../../../components/form/UInputPassword';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { facultySchema } from '../../../schemas/userManagement.schema';
 import { useAddFacultyMutation } from '../../../redux/features/admin/userManagement/facultyManagement.api';
+import { useRef } from 'react';
 
 const CreateFaculty = () => {
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
     const {
         data: academicDepartmentData,
         isLoading: isAcademicDepartmentLoading,
@@ -61,6 +63,7 @@ const CreateFaculty = () => {
         const res = (await addFaculty(formData)) as TResponse<TFaculty>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
@@ -76,7 +79,7 @@ const CreateFaculty = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(facultySchema)}
-                        reset
+                        fncRef={fromResetRef}
                     >
                         <Divider>Personal Info</Divider>
                         <Row gutter={10}>

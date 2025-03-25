@@ -1,6 +1,6 @@
 import { Button, Col, Divider, Row } from 'antd';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import UFrom from '../../../components/form/UFrom';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
 import USelect from '../../../components/form/USelect';
 import {
@@ -16,8 +16,10 @@ import UInputPassword from '../../../components/form/UInputPassword';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAddAdminMutation } from '../../../redux/features/admin/userManagement/adminManagement';
 import { adminSchema } from '../../../schemas/userManagement.schema';
+import { useRef } from 'react';
 
 const CreateAdmin = () => {
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
     const [addAdmin] = useAddAdminMutation();
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -48,6 +50,7 @@ const CreateAdmin = () => {
         const res = (await addAdmin(formData)) as TResponse<TAdmin>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
@@ -62,7 +65,7 @@ const CreateAdmin = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(adminSchema)}
-                        reset
+                        fncRef={fromResetRef}
                     >
                         <Divider>Personal Info</Divider>
                         <Row gutter={10}>

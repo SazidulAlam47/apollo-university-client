@@ -1,5 +1,5 @@
 import { Button, Col, Flex } from 'antd';
-import UFrom from '../../../components/form/UFrom';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import UInput from '../../../components/form/UInput';
@@ -36,6 +36,7 @@ const CreateOfferedCourse = () => {
     const [addOfferedCourse] = useAddOfferedCourseMutation();
     const resetDeptRef = useRef<TUSelectFncRef>(undefined);
     const resetFacultyRef = useRef<TUSelectFncRef>(undefined);
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
 
     const { data: semesterRegistrationData, isFetching: isSemesterFetching } =
         useGetAllSemesterRegistrationQuery([
@@ -132,6 +133,7 @@ const CreateOfferedCourse = () => {
         )) as TResponse<TOfferedCourse>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
@@ -147,7 +149,7 @@ const CreateOfferedCourse = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(createOfferedCourseSchema)}
-                        reset
+                        fncRef={fromResetRef}
                     >
                         <USelect
                             name="semesterRegistration"

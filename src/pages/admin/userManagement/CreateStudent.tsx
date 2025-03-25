@@ -1,6 +1,6 @@
 import { Button, Col, Divider, Row } from 'antd';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import UFrom from '../../../components/form/UFrom';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
 import USelect from '../../../components/form/USelect';
 import {
@@ -25,8 +25,10 @@ import UPictureInput from '../../../components/form/UPictureInput';
 import UInputPassword from '../../../components/form/UInputPassword';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { studentSchema } from '../../../schemas/userManagement.schema';
+import { useRef } from 'react';
 
 const CreateStudent = () => {
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
     const {
         data: academicDepartmentData,
         isLoading: isAcademicDepartmentLoading,
@@ -78,6 +80,7 @@ const CreateStudent = () => {
         const res = (await addStudent(formData)) as TResponse<TStudent>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
@@ -93,7 +96,7 @@ const CreateStudent = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(studentSchema)}
-                        reset
+                        fncRef={fromResetRef}
                     >
                         <Divider>Personal Info</Divider>
                         <Row gutter={10}>

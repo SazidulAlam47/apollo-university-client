@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Col, Flex } from 'antd';
-import UFrom from '../../../components/form/UFrom';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -12,8 +12,10 @@ import {
 import USelect from '../../../components/form/USelect';
 import { useGetAllFacultiesQuery } from '../../../redux/features/admin/userManagement/facultyManagement.api';
 import { assignCourseFacultiesSchema } from '../../../schemas/courseManagement.schema';
+import { useRef } from 'react';
 
 const AssignCourseFaculties = () => {
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
     const { data: coursesData, isFetching: isCourseFetching } =
         useGetAllCoursesQuery([]);
 
@@ -46,6 +48,7 @@ const AssignCourseFaculties = () => {
         )) as TResponse<any>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
         }
@@ -60,7 +63,7 @@ const AssignCourseFaculties = () => {
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(assignCourseFacultiesSchema)}
-                        reset
+                        fncRef={fromResetRef}
                     >
                         <USelect
                             name="course"

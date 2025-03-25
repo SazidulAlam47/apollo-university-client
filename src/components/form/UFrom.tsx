@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form } from 'antd';
-import { ReactNode } from 'react';
+import { ReactNode, RefObject, useImperativeHandle } from 'react';
 import {
     FieldValues,
     FormProvider,
     SubmitHandler,
     useForm,
 } from 'react-hook-form';
+
+export type TUFromFncRef = {
+    resetFrom: () => void;
+};
 
 type TFormConfig = {
     defaultValues?: Record<string, unknown>;
@@ -16,7 +20,7 @@ type TFormConfig = {
 type UFromProps = {
     children: ReactNode;
     onSubmit: SubmitHandler<FieldValues>;
-    reset?: boolean;
+    fncRef?: RefObject<unknown>;
 } & TFormConfig;
 
 const UFrom = ({
@@ -24,7 +28,7 @@ const UFrom = ({
     onSubmit,
     defaultValues,
     resolver,
-    reset = false,
+    fncRef = undefined,
 }: UFromProps) => {
     const formConfig: TFormConfig = {};
 
@@ -37,16 +41,17 @@ const UFrom = ({
 
     const methods = useForm(formConfig);
 
-    const submit: SubmitHandler<FieldValues> = (data) => {
-        onSubmit(data);
-        if (reset) {
-            methods.reset();
-        }
+    const resetFrom = () => {
+        methods.reset();
     };
+
+    useImperativeHandle(fncRef, () => ({
+        resetFrom,
+    }));
 
     return (
         <FormProvider {...methods}>
-            <Form onFinish={methods.handleSubmit(submit)} layout="vertical">
+            <Form onFinish={methods.handleSubmit(onSubmit)} layout="vertical">
                 {children}
             </Form>
         </FormProvider>
