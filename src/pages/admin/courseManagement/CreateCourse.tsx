@@ -26,7 +26,7 @@ const CreateCourse = () => {
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
         const courseData = {
             ...data,
-            preRequisiteCourses: data?.preRequisiteCourses.map(
+            preRequisiteCourses: data?.preRequisiteCourses?.map(
                 (item: string) => ({
                     course: item,
                     isDeleted: false,

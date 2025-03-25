@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import USelect from '../../../components/form/USelect';
 import UDatePacker from '../../../components/form/UDatePacker';
 import { semesterRegistrationSchema } from '../../../schemas/courseManagement.schema';
-import { useAddSemesterRegistrationMutation } from '../../../redux/features/admin/courseManagement/semesterRegistration.api';
+import { useAddSemesterRegistrationMutation } from '../../../redux/features/admin/courseManagement/courseManagement.api';
 
 const SemesterRegistration = () => {
     const [addSemesterRegistration] = useAddSemesterRegistrationMutation();

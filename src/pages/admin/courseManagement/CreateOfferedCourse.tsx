@@ -14,7 +14,7 @@ import {
     TSemesterRegistration,
 } from '../../../types';
 import { useAddOfferedCourseMutation } from '../../../redux/features/admin/courseManagement/offeredCourse.api';
-import { useGetAllSemesterRegistrationQuery } from '../../../redux/features/admin/courseManagement/semesterRegistration.api';
+import { useGetAllSemesterRegistrationQuery } from '../../../redux/features/admin/courseManagement/courseManagement.api';
 import USelect, { TUSelectFncRef } from '../../../components/form/USelect';
 import {
     useGetAllAcademicDepartmentsQuery,
