@@ -30,7 +30,7 @@ const Login = () => {
             if (res.data.data.needsPasswordChange) {
                 navigate('/change-password');
             } else {
-                navigate(`/${user.role}/dashboard`);
+                navigate('/');
             }
             toast.success(res.data.message, { id: toastId });
         } else if (res.error) {

@@ -7,6 +7,7 @@ import studentPaths from './studentPaths';
 import ProtectedRoute from '../components/layout/ProtectedRoute';
 import Login from '../pages/auth/Login';
 import ChangePassword from '../pages/auth/ChangePassword';
+import WelcomePage from '../pages/WelcomePage';
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,12 @@ const router = createBrowserRouter([
                 <App />
             </ProtectedRoute>
         ),
+        children: [
+            {
+                path: '',
+                element: <WelcomePage />,
+            },
+        ],
     },
     {
         path: '/admin',

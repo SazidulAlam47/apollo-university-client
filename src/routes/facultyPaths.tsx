@@ -1,12 +1,16 @@
-import FacultyDashboard from '../pages/faculty/FacultyDashboard';
+import WelcomePage from '../pages/WelcomePage';
 import { TPath } from '../types';
 
 const facultyPaths: TPath[] = [
     {
-        name: 'Dashboard',
-        path: 'dashboard',
-        element: <FacultyDashboard />,
+        path: '/faculty',
+        element: <WelcomePage />,
     },
+    // {
+    //     name: 'Dashboard',
+    //     path: 'dashboard',
+    //     element: <FacultyDashboard />,
+    // },
 ];
 
 export default facultyPaths;

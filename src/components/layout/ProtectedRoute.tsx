@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children, role }: ProtectedRouteProps) => {
     }
 
     if (role && user?.role !== role) {
-        return <Navigate to={`/${user?.role}/dashboard`} />;
+        return <Navigate to="/" />;
     }
 
     return children;

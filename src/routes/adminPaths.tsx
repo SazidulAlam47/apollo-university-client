@@ -4,7 +4,6 @@ import AcademicSemester from '../pages/admin/academicManagement/AcademicSemester
 import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAcademicDepartment';
 import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
 import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
-import AdminDashboard from '../pages/admin/AdminDashboard';
 import CoursesData from '../pages/admin/courseManagement/CoursesData';
 import CourseUpdate from '../pages/admin/courseManagement/CourseUpdate';
 import CreateCourse from '../pages/admin/courseManagement/CreateCourse';
@@ -25,17 +24,17 @@ import FacultyUpdate from '../pages/admin/userManagement/FacultyUpdate';
 import StudentDetails from '../pages/admin/userManagement/StudentDetails';
 import StudentsData from '../pages/admin/userManagement/StudentsData';
 import StudentUpdate from '../pages/admin/userManagement/StudentUpdate';
+import WelcomePage from '../pages/WelcomePage';
 import { TPath } from '../types';
 
 const adminPaths: TPath[] = [
     {
-        name: 'Dashboard',
-        path: 'dashboard',
-        element: <AdminDashboard />,
-    },
-    {
         name: 'Academic Management',
         children: [
+            {
+                path: '/admin',
+                element: <WelcomePage />,
+            },
             {
                 name: 'Create A. Semester',
                 path: 'create-academic-semester',
