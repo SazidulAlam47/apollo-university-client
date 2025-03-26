@@ -8,6 +8,8 @@ import ProtectedRoute from '../components/layout/ProtectedRoute';
 import Login from '../pages/auth/Login';
 import ChangePassword from '../pages/auth/ChangePassword';
 import WelcomePage from '../pages/WelcomePage';
+import ForgotPassword from '../pages/auth/ForgotPassword';
+import ResetPassword from '../pages/auth/ResetPassword';
 
 const router = createBrowserRouter([
     {
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
                 <ChangePassword />
             </ProtectedRoute>
         ),
+    },
+    {
+        path: '/forgot-password',
+        element: <ForgotPassword />,
+    },
+    {
+        path: '/reset-password',
+        element: <ResetPassword />,
     },
 ]);
 

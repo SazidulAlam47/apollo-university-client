@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
 import { useLoginMutation } from '../../redux/features/auth/auth.api';
 import { FieldValues } from 'react-hook-form';
@@ -49,17 +49,23 @@ const Login = () => {
         >
             <Col span={5}>
                 <img src={logo} alt="Apollo University" />
-                <UFrom
-                    onSubmit={onSubmit}
-                    resolver={zodResolver(loginSchema)}
-                    defaultValues={{ id: '2026030001', password: 'Test@123' }} //TODO: only for development
-                >
+                <UFrom onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
                     <UInputId />
                     <UInputPassword />
                     <Button block type="primary" htmlType="submit">
                         Log in
                     </Button>
                 </UFrom>
+                <div
+                    style={{
+                        textAlign: 'center',
+                        marginTop: '8px',
+                    }}
+                >
+                    <Link to="/forgot-password">
+                        <Button type="link">Forgot Password</Button>
+                    </Link>
+                </div>
             </Col>
         </Flex>
     );
