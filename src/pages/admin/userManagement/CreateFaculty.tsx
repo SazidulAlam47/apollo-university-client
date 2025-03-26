@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Row } from 'antd';
+import { Button, Col, Divider, Modal, Row } from 'antd';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
@@ -21,6 +21,8 @@ import { useRef } from 'react';
 
 const CreateFaculty = () => {
     const fromResetRef = useRef<TUFromFncRef>(undefined);
+    const [modal, contextHolder] = Modal.useModal();
+
     const {
         data: academicDepartmentData,
         isLoading: isAcademicDepartmentLoading,
@@ -63,6 +65,21 @@ const CreateFaculty = () => {
         const res = (await addFaculty(formData)) as TResponse<TFaculty>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            modal.success({
+                title: 'Faculty account created successfully',
+                content: (
+                    <>
+                        <p>Faculty ID: {res.data.data.id} </p>
+                        <p>
+                            Faculty Name: {res.data.data.name.firstName}{' '}
+                            {res.data.data.name.middleName}{' '}
+                            {res.data.data.name.lastName}
+                        </p>
+                    </>
+                ),
+                okText: 'Ok',
+                centered: true,
+            });
             fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
@@ -200,6 +217,7 @@ const CreateFaculty = () => {
                     </UFrom>
                 </Col>
             </Row>
+            {contextHolder}
         </>
     );
 };

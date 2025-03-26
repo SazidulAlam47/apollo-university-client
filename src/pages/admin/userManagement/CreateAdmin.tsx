@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Row } from 'antd';
+import { Button, Col, Divider, Modal, Row } from 'antd';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
 import UInput from '../../../components/form/UInput';
@@ -20,6 +20,8 @@ import { useRef } from 'react';
 
 const CreateAdmin = () => {
     const fromResetRef = useRef<TUFromFncRef>(undefined);
+    const [modal, contextHolder] = Modal.useModal();
+
     const [addAdmin] = useAddAdminMutation();
 
     const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -50,6 +52,21 @@ const CreateAdmin = () => {
         const res = (await addAdmin(formData)) as TResponse<TAdmin>;
         if (res.data) {
             toast.success(res.data.message, { id: toastId });
+            modal.success({
+                title: 'Admin account created successfully',
+                content: (
+                    <>
+                        <p>Admin ID: {res.data.data.id} </p>
+                        <p>
+                            Admin Name: {res.data.data.name.firstName}{' '}
+                            {res.data.data.name.middleName}{' '}
+                            {res.data.data.name.lastName}
+                        </p>
+                    </>
+                ),
+                okText: 'Ok',
+                centered: true,
+            });
             fromResetRef?.current?.resetFrom();
         } else if (res.error) {
             toast.error(res.error.data.message, { id: toastId });
@@ -177,6 +194,7 @@ const CreateAdmin = () => {
                     </UFrom>
                 </Col>
             </Row>
+            {contextHolder}
         </>
     );
 };

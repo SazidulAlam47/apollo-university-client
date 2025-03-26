@@ -7,17 +7,28 @@ import UFrom from '../../components/form/UFrom';
 import { resetPasswordSchema } from '../../schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import UInputPassword from '../../components/form/UInputPassword';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const ResetPassword = () => {
     const [resetPassword] = useResetPasswordMutation();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    const id = searchParams.get('id');
+    const token = searchParams.get('token');
+
+    useEffect(() => {
+        if (!id || !token) {
+            navigate('/login');
+        }
+    }, [id, token, navigate]);
 
     const onSubmit = async (data: FieldValues) => {
         const resetPasswordData = {
-            token: searchParams.get('token'),
+            token,
             data: {
-                id: searchParams.get('id'),
+                id,
                 password: data.password,
             },
         };
