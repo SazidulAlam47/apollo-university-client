@@ -1,17 +1,9 @@
 import { TQueryParam } from '../../../types';
 import { baseApi } from '../../api/baseApi';
 
-const studentCourseApi = baseApi.injectEndpoints({
+const facultyCourseApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        enrollCourse: build.mutation({
-            query: (offeredCourse) => ({
-                url: '/enrolled-courses',
-                method: 'POST',
-                body: { offeredCourse },
-            }),
-            invalidatesTags: ['studentCourse'],
-        }),
-        getStudentOfferedCourses: build.query({
+        getFacultyOfferedCourses: build.query({
             query: (args: TQueryParam[]) => {
                 const params = new URLSearchParams();
                 if (args?.length) {
@@ -22,14 +14,14 @@ const studentCourseApi = baseApi.injectEndpoints({
                     });
                 }
                 return {
-                    url: '/offered-courses/student-offered-courses',
+                    url: '/offered-courses/faculty-offered-courses',
                     method: 'GET',
                     params,
                 };
             },
-            providesTags: ['studentCourse'],
+            providesTags: ['facultyCourse'],
         }),
-        getStudentEnrolledCourses: build.query({
+        getFacultyEnrolledCourses: build.query({
             query: (args: TQueryParam[]) => {
                 const params = new URLSearchParams();
                 if (args?.length) {
@@ -40,18 +32,17 @@ const studentCourseApi = baseApi.injectEndpoints({
                     });
                 }
                 return {
-                    url: '/enrolled-courses/student-enrolled-courses',
+                    url: '/enrolled-courses/faculty-enrolled-courses',
                     method: 'GET',
                     params,
                 };
             },
-            providesTags: ['studentCourse'],
+            providesTags: ['facultyCourse'],
         }),
     }),
 });
 
 export const {
-    useGetStudentOfferedCoursesQuery,
-    useEnrollCourseMutation,
-    useGetStudentEnrolledCoursesQuery,
-} = studentCourseApi;
+    useGetFacultyOfferedCoursesQuery,
+    useGetFacultyEnrolledCoursesQuery,
+} = facultyCourseApi;
