@@ -115,7 +115,6 @@ const AdminsData = () => {
                             ? 'Block'
                             : 'Unblock'}
                     </Button>
-                    {contextHolder}
                 </div>
             ),
         },
@@ -179,6 +178,7 @@ const AdminsData = () => {
                 pageSizeOptions={[3, 5, 10, 15, 20]}
                 onShowSizeChange={(_page, limit) => setLimit(limit)}
             />
+            {contextHolder}
         </>
     );
 };

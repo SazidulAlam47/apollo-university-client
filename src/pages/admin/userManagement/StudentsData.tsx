@@ -135,7 +135,6 @@ const StudentsData = () => {
                             ? 'Block'
                             : 'Unblock'}
                     </Button>
-                    {contextHolder}
                 </div>
             ),
         },
@@ -206,6 +205,7 @@ const StudentsData = () => {
                 pageSizeOptions={[3, 5, 10, 15, 20]}
                 onShowSizeChange={(_page, limit) => setLimit(limit)}
             />
+            {contextHolder}
         </>
     );
 };

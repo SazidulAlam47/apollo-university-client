@@ -114,7 +114,6 @@ const RegisteredSemesters = () => {
                                 {record.status === 'Upcoming' ? 'Ongoing' : ''}
                                 {record.status === 'Ongoing' ? 'Ended' : ''}
                             </Button>
-                            {contextHolder}
                         </>
                     );
                 } else if (record.status === 'Ended') {
@@ -168,6 +167,7 @@ const RegisteredSemesters = () => {
                 pageSizeOptions={[3, 5, 10, 15, 20]}
                 onShowSizeChange={(_page, limit) => setLimit(limit)}
             />
+            {contextHolder}
         </>
     );
 };
