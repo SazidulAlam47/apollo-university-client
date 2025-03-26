@@ -3,7 +3,7 @@ import {
     TAcademicFaculty,
     TAcademicSemester,
 } from './academicManagement.type';
-import { TFaculty } from './userManagement.type';
+import { TFaculty, TStudent } from './userManagement.type';
 
 export type TSemesterRegistration = {
     _id: string;
@@ -51,4 +51,28 @@ export type TOfferedCourse = {
     days: TDay[];
     startTime: string;
     endTime: string;
+};
+
+export type TEnrolledCourses = {
+    _id: string;
+    semesterRegistration: TSemesterRegistration;
+    academicSemester: TAcademicSemester;
+    academicFaculty: TAcademicFaculty;
+    academicDepartment: TAcademicDepartment;
+    offeredCourse: TOfferedCourse;
+    course: TCourse;
+    student: TStudent;
+    faculty: TFaculty;
+    isEnrolled: boolean;
+    courseMarks: TCourseMarks;
+    grade: string;
+    gradePoints: number;
+    isCompleted: boolean;
+};
+
+export type TCourseMarks = {
+    classTest1: number;
+    midTerm: number;
+    classTest2: number;
+    finalTerm: number;
 };

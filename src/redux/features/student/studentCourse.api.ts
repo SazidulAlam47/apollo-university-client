@@ -29,23 +29,29 @@ const studentCourseApi = baseApi.injectEndpoints({
             },
             providesTags: ['studentCourse'],
         }),
-        // getSingleFaculty: build.query({
-        //     query: (id: string) => ({
-        //         url: `/faculties/${id}`,
-        //         method: 'GET',
-        //     }),
-        //     providesTags: ['faculty'],
-        // }),
-        // updateFaculty: build.mutation({
-        //     query: ({ data, id }: { data: FormData; id: string }) => ({
-        //         url: `/faculties/${id}`,
-        //         method: 'PATCH',
-        //         body: data,
-        //     }),
-        //     invalidatesTags: ['faculty'],
-        // }),
+        getStudentEnrolledCourses: build.query({
+            query: (args: TQueryParam[]) => {
+                const params = new URLSearchParams();
+                if (args?.length) {
+                    args.forEach((item) => {
+                        if (item.value) {
+                            params.append(item.name, item.value as string);
+                        }
+                    });
+                }
+                return {
+                    url: '/enrolled-courses/student-enrolled-courses',
+                    method: 'GET',
+                    params,
+                };
+            },
+            providesTags: ['studentCourse'],
+        }),
     }),
 });
 
-export const { useGetStudentOfferedCoursesQuery, useEnrollCourseMutation } =
-    studentCourseApi;
+export const {
+    useGetStudentOfferedCoursesQuery,
+    useEnrollCourseMutation,
+    useGetStudentEnrolledCoursesQuery,
+} = studentCourseApi;

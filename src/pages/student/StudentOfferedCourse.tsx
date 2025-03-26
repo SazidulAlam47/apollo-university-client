@@ -68,12 +68,12 @@ const StudentOfferedCourse = () => {
             dataIndex: 'section',
         },
         {
-            title: 'Start Time',
-            dataIndex: 'startTime',
+            title: 'Days',
+            dataIndex: 'days',
         },
         {
-            title: 'End Time',
-            dataIndex: 'endTime',
+            title: 'Time',
+            dataIndex: 'time',
         },
         {
             title: 'Enroll',
@@ -91,6 +91,7 @@ const StudentOfferedCourse = () => {
             course,
             faculty,
             section,
+            days,
             startTime,
             endTime,
         }: TOfferedCourse) => ({
@@ -98,8 +99,8 @@ const StudentOfferedCourse = () => {
             course: course.title,
             faculty: faculty.fullName,
             section,
-            startTime,
-            endTime,
+            days: days.join(', '),
+            time: `${startTime} - ${endTime}`,
         }),
     );
 
