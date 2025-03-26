@@ -5,21 +5,43 @@ import Loader from '../components/loader/Loader';
 const { Title, Text } = Typography;
 
 const WelcomePage = () => {
-    const { data, isLoading, error } = useGetMeQuery(undefined);
+    const { data, isLoading } = useGetMeQuery(undefined);
 
     if (isLoading) {
         return <Loader />;
     }
 
-    if (error) {
+    const user = data?.data;
+
+    if (!user) {
         return (
-            <Title style={{ textAlign: 'center', marginTop: 50, color: 'red' }}>
-                Error loading user data
-            </Title>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minHeight: '85vh',
+                    background: '#f0f2f5',
+                }}
+            >
+                <Card
+                    style={{
+                        width: 450,
+                        textAlign: 'center',
+                        padding: '20px',
+                        borderRadius: '10px',
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                        background: '#fff',
+                    }}
+                >
+                    {/* Welcome Text */}
+                    <Title level={2} style={{ color: '#1890ff', margin: 0 }}>
+                        Welcome Back! 🎉
+                    </Title>
+                </Card>
+            </div>
         );
     }
-
-    const user = data?.data;
 
     return (
         <div
