@@ -18,15 +18,15 @@ type TTableData = {
 const columns: TableColumnsType<TTableData> = [
     {
         title: 'Academic Faculty',
-        dataIndex: 'academicFacultyName',
+        dataIndex: 'academicFaculty',
     },
     {
         title: 'Academic Department',
-        dataIndex: 'academicDepartmentName',
+        dataIndex: 'academicDepartment',
     },
     {
         title: 'Course Title',
-        dataIndex: 'courseTitle',
+        dataIndex: 'course',
     },
     {
         title: 'Section',
@@ -72,7 +72,6 @@ const FacultyOfferedCourses = () => {
     const tableData = facultyOfferedCourseData?.data?.map(
         ({
             _id,
-            semesterRegistration,
             academicFaculty,
             academicDepartment,
             course,
@@ -82,14 +81,12 @@ const FacultyOfferedCourses = () => {
             endTime,
         }: TOfferedCourse) => ({
             key: _id,
-            academicFacultyName: academicFaculty.name,
-            academicDepartmentName: academicDepartment.name,
-            courseTitle: course.title,
+            academicFaculty: academicFaculty.name,
+            academicDepartment: academicDepartment.name,
+            course: course.title,
             section,
             days: days.join(', '),
             time: `${startTime} - ${endTime}`,
-            semesterRegistration,
-            academicDepartment,
         }),
     );
 

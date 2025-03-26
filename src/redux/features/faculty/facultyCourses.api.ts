@@ -19,7 +19,7 @@ const facultyCourseApi = baseApi.injectEndpoints({
                     params,
                 };
             },
-            providesTags: ['facultyCourse'],
+            providesTags: ['facultyOfferedCourse'],
         }),
         getFacultyEnrolledCourses: build.query({
             query: (args: TQueryParam[]) => {
@@ -37,7 +37,15 @@ const facultyCourseApi = baseApi.injectEndpoints({
                     params,
                 };
             },
-            providesTags: ['facultyCourse'],
+            providesTags: ['facultyEnrolledCourse'],
+        }),
+        updateMarks: build.mutation({
+            query: (data) => ({
+                url: '/enrolled-courses/update-marks',
+                method: 'PATCH',
+                body: data,
+            }),
+            invalidatesTags: ['facultyEnrolledCourse'],
         }),
     }),
 });
@@ -45,4 +53,5 @@ const facultyCourseApi = baseApi.injectEndpoints({
 export const {
     useGetFacultyOfferedCoursesQuery,
     useGetFacultyEnrolledCoursesQuery,
+    useUpdateMarksMutation,
 } = facultyCourseApi;

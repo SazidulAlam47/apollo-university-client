@@ -78,7 +78,8 @@ export const baseApi = createApi({
         'offeredCourse',
         'courseFaculties',
         'studentCourse',
-        'facultyCourse',
+        'facultyOfferedCourse',
+        'facultyEnrolledCourse',
         'me',
     ],
 });
