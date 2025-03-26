@@ -1,13 +1,25 @@
-import { Button, Pagination, Table, TableColumnsType } from 'antd';
-import { Key, useState } from 'react';
-import { TCourse, TMeta } from '../../../types';
+import { Button, Flex, Modal, Pagination, Table, TableColumnsType } from 'antd';
+import { Key, useRef, useState } from 'react';
+import { TCourse, TFaculty, TMeta, TResponse } from '../../../types';
 import Loader from '../../../components/loader/Loader';
-import { useGetAllCoursesQuery } from '../../../redux/features/admin/courseManagement/courses.api';
+import {
+    useAssignCourseFacultiesMutation,
+    useGetAllCoursesQuery,
+} from '../../../redux/features/admin/courseManagement/courses.api';
 import { Link } from 'react-router-dom';
+import USelect from '../../../components/form/USelect';
+import UFrom, { TUFromFncRef } from '../../../components/form/UFrom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { assignCourseFacultiesSchema } from '../../../schemas/courseManagement.schema';
+import { useGetAllFacultiesQuery } from '../../../redux/features/admin/userManagement/facultyManagement.api';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { toast } from 'sonner';
 
 type TTableData = {
     key: Key;
-    name: string;
+    title: string;
+    prefix: string;
+    code: number;
 };
 
 const columns: TableColumnsType<TTableData> = [
@@ -25,11 +37,15 @@ const columns: TableColumnsType<TTableData> = [
     },
     {
         title: 'Action',
+        width: '10%',
         render: (_, record) => {
             return (
-                <Link to={`/admin/course-update/${record.key}`}>
-                    <Button>Update</Button>
-                </Link>
+                <Flex gap={10}>
+                    <Link to={`/admin/course-update/${record.key}`}>
+                        <Button>Update</Button>
+                    </Link>
+                    <AssignModal courseInfo={record} />
+                </Flex>
             );
         },
     },
@@ -85,6 +101,78 @@ const CoursesData = () => {
                 pageSizeOptions={[3, 5, 10, 15, 20]}
                 onShowSizeChange={(_page, limit) => setLimit(limit)}
             />
+        </>
+    );
+};
+
+const AssignModal = ({ courseInfo }: { courseInfo: TTableData }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const fromResetRef = useRef<TUFromFncRef>(undefined);
+
+    const { data: facultiesData, isFetching: isFacultiesFetching } =
+        useGetAllFacultiesQuery([]);
+
+    const facultiesOption = facultiesData?.data.map((item: TFaculty) => ({
+        value: item._id,
+        label: item.fullName,
+    }));
+
+    const [assignCourseFaculties] = useAssignCourseFacultiesMutation();
+
+    const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const courseFacultiesData = {
+            courseId: courseInfo.key,
+            data: {
+                faculties: data.faculties,
+            },
+        };
+
+        const toastId = toast.loading('Assigning...');
+        const res = (await assignCourseFaculties(
+            courseFacultiesData,
+        )) as TResponse<null>;
+        if (res.data) {
+            toast.success(res.data.message, { id: toastId });
+            setIsModalOpen(false);
+            fromResetRef?.current?.resetFrom();
+        } else if (res.error) {
+            toast.error(res.error.data.message, { id: toastId });
+        }
+    };
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <>
+            <Button onClick={showModal}>Assign Faculties</Button>
+            <Modal
+                title={`Assign Faculties to ${courseInfo.title}`}
+                open={isModalOpen}
+                footer={false}
+                onCancel={handleCancel}
+            >
+                <UFrom
+                    onSubmit={handleSubmit}
+                    resolver={zodResolver(assignCourseFacultiesSchema)}
+                    fncRef={fromResetRef}
+                >
+                    <USelect
+                        mode="multiple"
+                        name="faculties"
+                        label="Faculties"
+                        placeholder="Select Faculties"
+                        disabled={isFacultiesFetching}
+                        options={facultiesOption}
+                    />
+                    <Button htmlType="submit">Assign</Button>
+                </UFrom>
+            </Modal>
         </>
     );
 };

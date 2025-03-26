@@ -35,7 +35,6 @@ export const courseSchema = z.object({
 });
 
 export const assignCourseFacultiesSchema = z.object({
-    course: z.string({ required_error: 'Please select a Course' }),
     faculties: z.string().array(),
 });
 
