@@ -30,7 +30,7 @@ export const authSlice = createSlice({
         logout: (state) => {
             state.user = null;
             state.token = null;
-            fetch('http://localhost:5000/api/v1/auth/logout', {
+            fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/logout`, {
                 credentials: 'include',
             });
         },
