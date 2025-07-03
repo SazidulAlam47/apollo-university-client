@@ -13,11 +13,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import UInputId from '../../components/form/UInputId';
 import UInputPassword from '../../components/form/UInputPassword';
 import logo from '../../assets/images/logo.png';
+import {
+    adminLogin,
+    defaultLogin,
+    facultyLogin,
+    studentLogin,
+} from '../../constants/credentials';
+import { useState } from 'react';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [login] = useLoginMutation();
+    const [values, setValues] = useState(defaultLogin);
 
     const onSubmit = async (data: FieldValues) => {
         const toastId = toast.loading('Logging in...');
@@ -49,11 +57,15 @@ const Login = () => {
         >
             <Col span={5}>
                 <img src={logo} alt="Apollo University" />
-                <UFrom onSubmit={onSubmit} resolver={zodResolver(loginSchema)}>
+                <UFrom
+                    onSubmit={onSubmit}
+                    resolver={zodResolver(loginSchema)}
+                    values={values}
+                >
                     <UInputId />
                     <UInputPassword />
                     <Button block type="primary" htmlType="submit">
-                        Log in
+                        Login
                     </Button>
                 </UFrom>
                 <div
@@ -65,6 +77,33 @@ const Login = () => {
                     <Link to="/forgot-password">
                         <Button type="link">Forgot Password</Button>
                     </Link>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '10px',
+                        marginTop: '10px',
+                    }}
+                >
+                    <Button
+                        type="default"
+                        onClick={() => setValues(adminLogin)}
+                    >
+                        Login as Admin
+                    </Button>
+                    <Button
+                        type="default"
+                        onClick={() => setValues(facultyLogin)}
+                    >
+                        Login as Faculty
+                    </Button>
+                    <Button
+                        type="default"
+                        onClick={() => setValues(studentLogin)}
+                    >
+                        Login as Student
+                    </Button>
                 </div>
             </Col>
         </Flex>
