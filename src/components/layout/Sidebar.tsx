@@ -8,7 +8,6 @@ import studentPaths from '../../routes/studentPaths';
 import { useAppSelector } from '../../redux/hooks';
 import { currentToken, IUser } from '../../redux/features/auth/auth.slice';
 import verifyToken from '../../utils/verifyToken';
-import './Sidebar.css';
 
 const { Sider } = Layout;
 
@@ -57,7 +56,6 @@ const Sidebar = () => {
                 zIndex: 1000,
             }}
         >
-            <div className="sidebar-mobile-spacer" />
             <NavLink to="/">
                 <img
                     src={logo}

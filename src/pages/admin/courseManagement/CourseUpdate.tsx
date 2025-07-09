@@ -91,7 +91,18 @@ const CourseUpdate = () => {
                 Update a Course
             </h2>
             <Flex justify="center">
-                <Col span={10}>
+                <Col
+                    xs={{ span: 24 }}
+                    sm={{ span: 18, offset: 3 }}
+                    md={{ span: 12, offset: 6 }}
+                    lg={{ span: 10, offset: 0 }}
+                    xl={{ span: 10, offset: 0 }}
+                    style={{
+                        maxWidth: 400,
+                        width: '100%',
+                        margin: '0 auto',
+                    }}
+                >
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(courseSchema)}

@@ -74,7 +74,7 @@ const Login = () => {
                     alt="Apollo University"
                     style={{
                         width: '100%',
-                        maxWidth: 180,
+                        maxWidth: 250,
                         display: 'block',
                         margin: '0 auto 24px auto',
                     }}
