@@ -8,6 +8,7 @@ import studentPaths from '../../routes/studentPaths';
 import { useAppSelector } from '../../redux/hooks';
 import { currentToken, IUser } from '../../redux/features/auth/auth.slice';
 import verifyToken from '../../utils/verifyToken';
+import { useState } from 'react';
 
 const { Sider } = Layout;
 
@@ -19,6 +20,7 @@ const UserRoles = {
 };
 
 const Sidebar = () => {
+    const [collapsed, setCollapsed] = useState(true);
     const navigate = useNavigate();
     const token = useAppSelector(currentToken);
     if (!token) {
@@ -44,10 +46,19 @@ const Sidebar = () => {
             break;
     }
 
+    const handleNavClick = () => {
+        if (setCollapsed && window.innerWidth <= 991) {
+            setCollapsed(true);
+        }
+    };
+
     return (
         <Sider
             breakpoint="lg"
             collapsedWidth="0"
+            collapsible={window.innerWidth <= 991}
+            collapsed={collapsed}
+            onCollapse={setCollapsed}
             style={{
                 height: '100%',
                 minHeight: '100vh',
@@ -71,7 +82,10 @@ const Sidebar = () => {
                 theme="dark"
                 mode="inline"
                 defaultSelectedKeys={['4']}
-                items={sidebarItems}
+                items={sidebarItems?.map((item) => ({
+                    ...item,
+                    onClick: handleNavClick,
+                }))}
             />
         </Sider>
     );
