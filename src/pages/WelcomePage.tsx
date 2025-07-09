@@ -27,7 +27,7 @@ const WelcomePage = () => {
             >
                 <Card className="welcome-desktop-card">
                     <Title level={2} style={{ color: '#1890ff', margin: 0 }}>
-                        Welcome Back! 🎉
+                        Welcome Back!
                     </Title>
                 </Card>
             </div>
@@ -41,40 +41,38 @@ const WelcomePage = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 minHeight: '85vh',
-                // background: '#f0f2f5',
             }}
         >
             <div className="welcome-desktop-card">
-                {/* Welcome Text */}
-                <Title level={2} style={{ color: '#1890ff' }}>
-                    Welcome, {user.name.firstName}! 🎉
-                </Title>
+                <Space direction="vertical" size="middle">
+                    <Avatar
+                        src={user.profileImg}
+                        alt={user.fullName}
+                        size={120}
+                        style={{
+                            display: 'block',
+                            margin: 'auto',
+                        }}
+                    />
 
-                {/* User Profile Image */}
-                <Avatar
-                    src={user.profileImg}
-                    alt={user.fullName}
-                    size={120}
-                    style={{
-                        display: 'block',
-                        margin: 'auto',
-                        border: '4px solid #1890ff',
-                    }}
-                />
-
-                <Divider />
+                    <Title
+                        level={3}
+                        style={{
+                            textAlign: 'center',
+                            color: '#333',
+                            marginBottom: 0,
+                        }}
+                    >
+                        {user.fullName}
+                    </Title>
+                </Space>
+                <Divider style={{ margin: '18px 0' }} />
 
                 <Space
                     direction="vertical"
                     size="middle"
                     style={{ textAlign: 'left', width: '100%' }}
                 >
-                    <Title
-                        level={3}
-                        style={{ textAlign: 'center', color: '#333' }}
-                    >
-                        {user.fullName}
-                    </Title>
                     <Text>
                         <strong>Email:</strong> {user.email}
                     </Text>

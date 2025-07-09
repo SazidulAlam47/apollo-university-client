@@ -107,6 +107,7 @@ const StudentDetails = () => {
                         height: 150,
                         borderRadius: '50%',
                         marginBottom: 20,
+                        objectFit: 'cover',
                     }}
                 />
                 <Link
