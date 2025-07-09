@@ -185,7 +185,7 @@ const FacultiesData = () => {
             <Input.Search
                 placeholder="input search text"
                 onSearch={setSearchTerm}
-                style={{ width: '20rem', margin: '10px 0', float: 'right' }}
+                style={{ maxWidth: '20rem', margin: '10px 0', float: 'right' }}
             />
             <Table
                 loading={isFetching}
