@@ -1,6 +1,7 @@
 import { Card, Avatar, Typography, Space, Divider } from 'antd';
 import { useGetMeQuery } from '../redux/features/user/user.api';
 import Loader from '../components/loader/Loader';
+import './WelcomePage.css';
 
 const { Title, Text } = Typography;
 
@@ -24,17 +25,7 @@ const WelcomePage = () => {
                     background: '#f0f2f5',
                 }}
             >
-                <Card
-                    style={{
-                        width: 450,
-                        textAlign: 'center',
-                        padding: '20px',
-                        borderRadius: '10px',
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                        background: '#fff',
-                    }}
-                >
-                    {/* Welcome Text */}
+                <Card className="welcome-desktop-card">
                     <Title level={2} style={{ color: '#1890ff', margin: 0 }}>
                         Welcome Back! 🎉
                     </Title>
@@ -50,19 +41,10 @@ const WelcomePage = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 minHeight: '85vh',
-                background: '#f0f2f5',
+                // background: '#f0f2f5',
             }}
         >
-            <Card
-                style={{
-                    width: 450,
-                    textAlign: 'center',
-                    padding: '20px',
-                    borderRadius: '10px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                    background: '#fff',
-                }}
-            >
+            <div className="welcome-desktop-card">
                 {/* Welcome Text */}
                 <Title level={2} style={{ color: '#1890ff' }}>
                     Welcome, {user.name.firstName}! 🎉
@@ -121,7 +103,7 @@ const WelcomePage = () => {
                         </Text>
                     )}
                 </Space>
-            </Card>
+            </div>
         </div>
     );
 };

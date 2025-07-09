@@ -120,7 +120,12 @@ const StudentDetails = () => {
                     <Button>Update Student</Button>
                 </Link>
             </Flex>
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                scroll={{ x: 'max-content' }}
+            />
         </div>
     );
 };

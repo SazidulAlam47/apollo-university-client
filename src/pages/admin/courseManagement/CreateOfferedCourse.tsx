@@ -145,7 +145,13 @@ const CreateOfferedCourse = () => {
                 Offer a Course
             </h2>
             <Flex justify="center">
-                <Col span={10} style={{ marginBottom: 20 }}>
+                <Col
+                    xs={{ span: 24 }}
+                    sm={{ span: 18, offset: 3 }}
+                    md={{ span: 12, offset: 6 }}
+                    lg={{ span: 10, offset: 0 }}
+                    xl={{ span: 10, offset: 0 }}
+                >
                     <UFrom
                         onSubmit={handleSubmit}
                         resolver={zodResolver(createOfferedCourseSchema)}

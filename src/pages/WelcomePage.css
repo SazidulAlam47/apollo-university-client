@@ -1,0 +1,19 @@
+.welcome-desktop-card {
+    width: 450px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    margin: 0 auto;
+}
+
+@media (max-width: 462px) {
+    .welcome-desktop-card {
+        box-shadow: none !important;
+        background: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+}

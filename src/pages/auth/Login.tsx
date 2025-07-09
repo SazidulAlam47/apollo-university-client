@@ -53,10 +53,32 @@ const Login = () => {
             style={{
                 width: '100%',
                 height: '100vh',
+                background: '#f5f6fa',
+                padding: 16,
             }}
         >
-            <Col span={5}>
-                <img src={logo} alt="Apollo University" />
+            <Col
+                xs={{ span: 24 }}
+                sm={{ span: 18, offset: 3 }}
+                md={{ span: 12, offset: 6 }}
+                lg={{ span: 10, offset: 0 }}
+                xl={{ span: 10, offset: 0 }}
+                style={{
+                    maxWidth: 400,
+                    width: '100%',
+                    margin: '0 auto',
+                }}
+            >
+                <img
+                    src={logo}
+                    alt="Apollo University"
+                    style={{
+                        width: '100%',
+                        maxWidth: 180,
+                        display: 'block',
+                        margin: '0 auto 24px auto',
+                    }}
+                />
                 <UFrom
                     onSubmit={onSubmit}
                     resolver={zodResolver(loginSchema)}
@@ -64,14 +86,19 @@ const Login = () => {
                 >
                     <UInputId />
                     <UInputPassword />
-                    <Button block type="primary" htmlType="submit">
+                    <Button
+                        block
+                        type="primary"
+                        htmlType="submit"
+                        style={{ marginTop: 8, marginBottom: 8 }}
+                    >
                         Login
                     </Button>
                 </UFrom>
                 <div
                     style={{
                         textAlign: 'center',
-                        marginTop: '8px',
+                        marginTop: 8,
                     }}
                 >
                     <Link to="/forgot-password">
@@ -82,8 +109,8 @@ const Login = () => {
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '10px',
-                        marginTop: '10px',
+                        gap: 10,
+                        marginTop: 10,
                     }}
                 >
                     <Button

@@ -87,7 +87,12 @@ const FacultyDetails = () => {
                     <Button>Update Faculty</Button>
                 </Link>
             </Flex>
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                scroll={{ x: 'max-content' }}
+            />
         </div>
     );
 };

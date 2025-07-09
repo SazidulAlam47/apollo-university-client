@@ -96,6 +96,7 @@ const AcademicSemester = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: 'sorter-icon' }}
                 pagination={false}
+                scroll={{ x: 'max-content' }}
             />
             <Pagination
                 align="end"

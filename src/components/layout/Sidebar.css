@@ -1,0 +1,9 @@
+.sidebar-mobile-spacer {
+    margin-top: 60px;
+}
+
+@media (min-width: 628px) {
+    .sidebar-mobile-spacer {
+        display: none !important;
+    }
+}

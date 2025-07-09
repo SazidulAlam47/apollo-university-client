@@ -36,10 +36,23 @@ const ChangePassword = () => {
             style={{
                 width: '100%',
                 height: '100vh',
+                background: '#f5f6fa',
+                padding: 16,
             }}
         >
-            <Col span={5}>
-                <h2 style={{ textAlign: 'center', padding: '10px 0' }}>
+            <Col
+                xs={{ span: 24 }}
+                sm={{ span: 18, offset: 3 }}
+                md={{ span: 12, offset: 6 }}
+                lg={{ span: 10, offset: 0 }}
+                xl={{ span: 10, offset: 0 }}
+                style={{
+                    maxWidth: 400,
+                    width: '100%',
+                    margin: '0 auto',
+                }}
+            >
+                <h2 style={{ textAlign: 'center', padding: '10px 0 24px 0' }}>
                     Change Your Password
                 </h2>
                 <UFrom
@@ -60,7 +73,12 @@ const ChangePassword = () => {
                         showLabel
                         hideIcon
                     />
-                    <Button block type="primary" htmlType="submit">
+                    <Button
+                        block
+                        type="primary"
+                        htmlType="submit"
+                        style={{ marginTop: 8, marginBottom: 8 }}
+                    >
                         Change Password
                     </Button>
                 </UFrom>
