@@ -99,17 +99,19 @@ const StudentDetails = () => {
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <Flex justify="space-between">
                 <div />
-                <img
-                    src={student.profileImg}
-                    alt={student.fullName}
-                    style={{
-                        width: 150,
-                        height: 150,
-                        borderRadius: '50%',
-                        marginBottom: 20,
-                        objectFit: 'cover',
-                    }}
-                />
+                {student.profileImg && (
+                    <img
+                        src={student.profileImg}
+                        alt={student.fullName}
+                        style={{
+                            width: 150,
+                            height: 150,
+                            borderRadius: '50%',
+                            marginBottom: 20,
+                            objectFit: 'cover',
+                        }}
+                    />
+                )}
                 <Link
                     to={`/admin/student-update/${id}`}
                     style={{
